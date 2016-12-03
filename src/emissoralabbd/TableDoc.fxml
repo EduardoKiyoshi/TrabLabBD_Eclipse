@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="emissoralabbd.TableDocController">
+   <children>
+      <MenuBar prefHeight="29.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Opções">
+            <items>
+                  <MenuItem fx:id="opcaoConectar" mnemonicParsing="false" onAction="#menuConectarAction" text="Conectar" />
+              <MenuItem fx:id="menuFechar" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane layoutY="27.0" prefHeight="395.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
+         <children>
+            <ComboBox fx:id="cmboxBuscar" prefHeight="26.0" prefWidth="119.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="28.0" />
+            <Label prefHeight="16.0" prefWidth="99.0" text="Buscar por..." AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="11.0" />
+            <TableView fx:id="tableView" prefHeight="488.0" prefWidth="767.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="66.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <ButtonBar prefHeight="40.0" prefWidth="190.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="586.0" AnchorPane.rightAnchor="14.0">
+              <buttons>
+                  <Button fx:id="btnAlterar" mnemonicParsing="false" onAction="#testSelect" text="Alterar" />
+                <Button fx:id="btnDeletar" mnemonicParsing="false" text="Deletar" />
+              </buttons>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ButtonBar>
+            <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" AnchorPane.leftAnchor="142.0" AnchorPane.topAnchor="28.0" />
+            <Button fx:id="btnInserir" mnemonicParsing="false" text="Inserir" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="31.0" />
+            <ComboBox prefWidth="150.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="31.0" />
+            <Label prefHeight="16.0" prefWidth="132.0" text="Inserir" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="11.0" />
+            <Label fx:id="labelConexao" layoutX="16.0" layoutY="552.0" text="Conexão: DESCONECTADO" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="16.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

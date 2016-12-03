@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="consultas_parte2.TrabalhoTodosDepartamentosOverviewController">
+   <children>
+      <TableView fx:id="todosTable" layoutX="41.0" layoutY="102.0" prefHeight="258.0" prefWidth="528.0">
+        <columns>
+          <TableColumn fx:id="nomeFuncColumn" prefWidth="135.0" text="Nome do Funcionário" />
+            <TableColumn fx:id="dataInicioColumn" minWidth="6.0" prefWidth="90.0" text="Data de início" />
+            <TableColumn fx:id="dataTerminoColumn" minWidth="0.0" prefWidth="130.0" text="Data de término" />
+            <TableColumn fx:id="nomeDeColumn" prefWidth="172.0" text="Departamento" />
+        </columns>
+      </TableView>
+      <Button layoutX="41.0" layoutY="24.0" mnemonicParsing="false" text="&lt; voltar" />
+   </children>
+</AnchorPane>

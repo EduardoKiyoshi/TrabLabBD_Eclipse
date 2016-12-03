@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="consultas_parte2.TodosFuncionariosController">
+   <children>
+      <TableView fx:id="todosTable" layoutX="43.0" layoutY="32.0" prefHeight="321.0" prefWidth="522.0">
+        <columns>
+          <TableColumn fx:id="nomeFuncColumn" prefWidth="75.0" text="C1" />
+            <TableColumn fx:id="cargoColumn" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="salarioColumn" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="nomeDepColumn" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="idadeDepColumn" prefWidth="75.0" text="Column X" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
