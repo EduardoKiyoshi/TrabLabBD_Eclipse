@@ -2,13 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FuncionarioOverviewController">
+<AnchorPane prefHeight="380.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FuncionarioOverviewController">
    <children>
-      <TableView fx:id="funcionarioTable" layoutX="14.0" layoutY="14.0" prefHeight="231.0" prefWidth="600.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="funcionarioTable" layoutX="14.0" layoutY="14.0" prefHeight="240.0" prefWidth="600.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
           <TableColumn fx:id="idFuColumn" prefWidth="75.0" text="C1" />
           <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="C2" />
@@ -18,9 +21,22 @@
             <TableColumn fx:id="descricaoTipoFuColumn" prefWidth="75.0" text="Column X" />
         </columns>
       </TableView>
-      <ButtonBar layoutX="386.0" layoutY="253.0" prefHeight="40.0" prefWidth="200.0">
+      <ButtonBar layoutX="386.0" layoutY="253.0" prefHeight="40.0" prefWidth="200.0" />
+      <ChoiceBox layoutX="105.0" layoutY="342.0" prefWidth="150.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="345.0" />
+      <Label layoutX="21.0" layoutY="343.0" text="Pesquisar por" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="345.0" />
+      <Label layoutX="273.0" layoutY="346.0" text="Valor: " AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="345.0" />
+      <TextField layoutX="312.0" layoutY="342.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="345.0" />
+      <ButtonBar layoutX="88.0" layoutY="253.0" prefHeight="40.0" prefWidth="425.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="87.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#handleAddDependente" text="Adicionar Dependente" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Inserir Funcionário" />
+            <Button mnemonicParsing="false" onAction="#handleUpdateFuncionario" text="Atualizar Dados" />
+            <Button mnemonicParsing="false" onAction="#handleDeleteFuncionario" text="Apagar Funcionario" />
+        </buttons>
+      </ButtonBar>
+      <ButtonBar layoutX="133.0" layoutY="288.0" prefHeight="40.0" prefWidth="348.0">
+        <buttons>
+          <Button mnemonicParsing="false" text="Consultar Trabalho" />
+            <Button mnemonicParsing="false" onAction="#handleSelectDependente" prefHeight="25.0" prefWidth="163.0" text="Consultar Dependentes" />
         </buttons>
       </ButtonBar>
    </children>

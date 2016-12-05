@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import util.DateUtil;
 
 public class GerenciaDAO {
 	private Connection conn;
@@ -14,7 +17,61 @@ public class GerenciaDAO {
     public GerenciaDAO(Connection conn){		
             this.conn = conn;
     }
-    
+    public boolean insertGerencia(Gerencia trab) throws SQLException {
+		Statement st = null;
+		String insertQuery = "INSERT INTO Gerencia "
+				+ "VALUES("
+				+ trab.getIdDe() + ","
+				+ trab.getIdFu() + ","
+				+ "TO_DATE('"	+ trab.getDataInicioGe() + "', 'DD/MM/YYYY'), "
+				+ "TO_DATE('"	+ trab.getDataFimGe() + "', 'DD/MM/YYYY')"
+				+ ")";	
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(insertQuery);
+			return true;
+		}catch (SQLException sqlex) {
+		      System.out.println("SQL Error" + sqlex);
+		      throw sqlex;
+		}		
+	}
+    public boolean updateGerencia(Gerencia oldTrab, LocalDate newDATAFIMGE) throws SQLException {
+		Statement st = null;
+		String insertQuery = "UPDATE Gerencia SET DATAFIMGE = TO_DATE('" + DateUtil.format(newDATAFIMGE)+"', 'DD/MM/YYYY')" 
+		+ " WHERE IDDE = " + oldTrab.getIdDe() + " AND IDFU = " + oldTrab.getIdFu() +" AND DATAINICIOGE = TO_DATE('"+ oldTrab.getDataInicioGe()+"', 'DD/MM/YYYY')";
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(insertQuery);
+			return true;
+		}catch (SQLException sqlex) {
+		      System.out.println("SQL Error" + sqlex);
+		      throw sqlex;
+		}		
+	}
+    public boolean deleteGerencia(int idFu, int idDe, LocalDate DATAINICIOGE) throws SQLException {
+		Statement st = null;
+		String insertQuery = "DELETE FROM Gerencia WHERE IDFU = " + idFu + " AND idDe = " + idDe + " AND DATAINICIOGE = TO_DATE('" + DateUtil.format(DATAINICIOGE)+ "','DD/MM/YYYY')";
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(insertQuery);
+			return true;
+		}catch (SQLException sqlex) {
+		      System.out.println("SQL Error" + sqlex);
+		      throw sqlex;
+		}		
+	}
+    public boolean deleteGerencia(int idFu) throws SQLException {
+		Statement st = null;
+		String insertQuery = "DELETE Gerencia WHERE IDFU = " + idFu;
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(insertQuery);
+			return true;
+		}catch (SQLException sqlex) {
+		      System.out.println("SQL Error" + sqlex);
+		      throw sqlex;
+		}		
+	}
     public ObservableList find(Funcionario func) throws SQLException {
         ObservableList funcionarioList = FXCollections.observableArrayList();
         String selectQuery = "SELECT idFu, idDe, dataInicioGe, dataFimGe FROM Gerencia WHERE IDFU = "
