@@ -76,7 +76,7 @@ public class Trabalho {
 		this.dataInicioTr.set(dataInicioTr);
 	}
         
-        public String getDataFimTr() {
+    public String getDataFimTr() {
 		return DateUtil.format(dataFimTr.get());
 	}
 	public ObjectProperty<LocalDate> dataFimTrProperty() {

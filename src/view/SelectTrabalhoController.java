@@ -1,42 +1,44 @@
 package view;
 
-import emissoralabbd.MainApp;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import model.Dependente;
-import model.DependenteDAO;
-import model.Funcionario;
-import model.FuncionarioDAO;
-import util.DBconnection;
-import util.DateUtil;
-import util.ErrorHandler;
+import emissoralabbd.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
+import model.Funcionario;
+import model.FuncionarioDAO;
+import model.Trabalho;
+import model.TrabalhoDAO;
+import util.DBconnection;
+import util.ErrorHandler;
 
-public class FuncionarioOverviewController {
+public class SelectTrabalhoController {
 	@FXML
-    private TableView<Funcionario> funcionarioTable;
+    private TableView<Trabalho> trabalhoTable;
     @FXML
-    private TableColumn<Funcionario, Integer> idFuColumn;
+    private TableColumn<Trabalho, Integer> idDeColumn;
     @FXML
-    private TableColumn<Funcionario, String> nomeColumn;
+    private TableColumn<Trabalho, Integer> idFuColumn;    
     @FXML
-    private TableColumn<Funcionario, LocalDate> dataNascColumn;
+    private TableColumn<Trabalho, LocalDate> dataInicioTrColumn;
     @FXML
-    private TableColumn<Funcionario, String> cpfFuColumn;
+    private TableColumn<Trabalho, LocalDate> dataTerminoTrColumn;
     @FXML
-    private TableColumn<Funcionario, String> salarioFuColumn;
+    private ChoiceBox departamento;
     @FXML
-    private TableColumn<Funcionario, String> descricaoTipoFuColumn;
-    
+    private TextField dataInicio;
+    @FXML
+    private TextField dataTermino;
  // Reference to the main application.
     private MainApp mainApp;
     private Stage dialogStage;
@@ -50,22 +52,19 @@ public class FuncionarioOverviewController {
         // Initialize the person table with the two columns.
     	idFuColumn.setCellValueFactory(
                 cellData -> cellData.getValue().idFuProperty().asObject());
-    	nomeColumn.setCellValueFactory(
-                cellData -> cellData.getValue().nomeCompletoFuProperty());
-    	dataNascColumn.setCellValueFactory(
-                cellData -> cellData.getValue().dataNascimentoFuProperty());
-    	cpfFuColumn.setCellValueFactory(
-                cellData -> cellData.getValue().cpfFuProperty());
-    	salarioFuColumn.setCellValueFactory(
-                cellData -> cellData.getValue().salarioFuProperty());
-    	descricaoTipoFuColumn.setCellValueFactory(
-                cellData -> cellData.getValue().descricaoTipoFuProperty());
+    	idDeColumn.setCellValueFactory(
+                cellData -> cellData.getValue().idDeProperty().asObject());
+    	dataInicioTrColumn.setCellValueFactory(
+                cellData -> cellData.getValue().dataInicioTrProperty());
+    	dataTerminoTrColumn.setCellValueFactory(
+                cellData -> cellData.getValue().dataFimTrProperty());
+    	
 
         // Clear person details.
         //showPersonDetails(null);
     	/*
         // Listen for selection changes and show the person details when changed.
-    	funcionarioTable.getSelectionModel().selectedItemProperty().addListener(
+    	trabalhoTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
         */
     }
@@ -73,6 +72,7 @@ public class FuncionarioOverviewController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+    
     /**
      * Is called by the main application to give a reference back to itself.
      * 
@@ -82,20 +82,26 @@ public class FuncionarioOverviewController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        Connection conn = DBconnection.getConexao();
-        FuncionarioDAO dao = new FuncionarioDAO(conn);
+        Connection conn = DBconnection.getConexao();        
+        TrabalhoDAO daoTr = new TrabalhoDAO(conn);
+        FuncionarioDAO daoFu = new FuncionarioDAO(conn);        
+        //DepartamentoDAO daoDe = new DepartamentoDAO(conn);
+        Funcionario func = new Funcionario();
+        func.setIdFu(2);
+        
         try{
-        	funcionarioTable.setItems(dao.findAll());        	
+        	daoFu.find(func.getIdFu()).getNomeCompletoFu();
+        	trabalhoTable.setItems(daoTr.find(func));        	
         }catch (SQLException sqlex) {
 			System.out.println("SQL Error" + sqlex);		    
 		}
         
     }
-    @FXML
+    /*@FXML
     private void handleSelectDependente() {
-        Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
-        if (selectedFuncionario != null) {
-            boolean okClicked = mainApp.showSelectDependente(selectedFuncionario);
+        Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
+        if (selectedTrabalho != null) {
+            boolean okClicked = mainApp.showSelectDependente(selectedTrabalho);
 
         } else {
             // Nothing selected.
@@ -110,9 +116,9 @@ public class FuncionarioOverviewController {
     }
     @FXML
     private void handleAddDependente() {
-        Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
-        if (selectedFuncionario != null) {
-            boolean okClicked = mainApp.showDependenteAddDialog(selectedFuncionario);
+        Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
+        if (selectedTrabalho != null) {
+            boolean okClicked = mainApp.showDependenteAddDialog(selectedTrabalho);
 
         } else {
             // Nothing selected.
@@ -126,10 +132,10 @@ public class FuncionarioOverviewController {
         }
     }
     @FXML
-    private void handleUpdateFuncionario() {
-        Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
-        if (selectedFuncionario != null) {
-           mainApp.showUpdateFuncionario(selectedFuncionario);
+    private void handleUpdateTrabalho() {
+        Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
+        if (selectedTrabalho != null) {
+           mainApp.showUpdateTrabalho(selectedTrabalho);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -143,9 +149,9 @@ public class FuncionarioOverviewController {
     }
     @FXML
     private void handleConsultarDependente() {
-        Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
-        if (selectedFuncionario != null) {
-           mainApp.showSelectDependente(selectedFuncionario);
+        Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
+        if (selectedTrabalho != null) {
+           mainApp.showSelectDependente(selectedTrabalho);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -158,26 +164,26 @@ public class FuncionarioOverviewController {
         }
     }
     @FXML
-    private void handleDeleteFuncionario() {
+    private void handleDeleteTrabalho() {
     	Connection conn = DBconnection.getConexao();
-    	FuncionarioDAO dao = null;
-        Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
-        int selectedIndex = funcionarioTable.getSelectionModel().getSelectedIndex();
+    	TrabalhoDAO dao = null;
+        Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
+        int selectedIndex = trabalhoTable.getSelectionModel().getSelectedIndex();
         String errorMessage = "";
         
-        if (selectedFuncionario != null) {
+        if (selectedTrabalho != null) {
         	// Nothing selected.
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Exlusao de Funcionario");
-            alert.setHeaderText("Exlusao de Funcionario");
-            alert.setContentText("Tem certeza que deseja excluir esse funcionario?");
+            alert.setTitle("Exlusao de Trabalho");
+            alert.setHeaderText("Exlusao de Trabalho");
+            alert.setContentText("Tem certeza que deseja excluir esse trabalho?");
             Optional<ButtonType> result = alert.showAndWait();
         	if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
         		try{
-	        		dao = new FuncionarioDAO(conn);
-	        		dao.deleteFuncionario(selectedFuncionario.getIdFu());
-	        		funcionarioTable.getItems().remove(selectedIndex);
+	        		dao = new TrabalhoDAO(conn);
+	        		dao.deleteTrabalho(selectedTrabalho.getIdFu());
+	        		trabalhoTable.getItems().remove(selectedIndex);
         		}catch (SQLException sqlex) {
                 	errorMessage += sqlex.getErrorCode();
         			System.out.println("SQL Error" + sqlex);		    
@@ -213,6 +219,5 @@ public class FuncionarioOverviewController {
             alert.setContentText("Please select a person in the table.");
             alert.showAndWait();
         }
-    }
-    
+    }*/
 }

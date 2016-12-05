@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InsertFuncionarioController">
+   <children>
+      <Label layoutX="52.0" layoutY="70.0" text="Nome" />
+      <Label layoutX="51.0" layoutY="105.0" text="Data de Nascimento" />
+      <Label layoutX="51.0" layoutY="138.0" text="CPF" />
+      <Label layoutX="51.0" layoutY="178.0" text="Tipo" />
+      <ChoiceBox fx:id="idTipoBox" layoutX="168.0" layoutY="176.0" prefWidth="150.0" />
+      <TextField fx:id="nameField" layoutX="169.0" layoutY="64.0" />
+      <TextField fx:id="birthdayField" layoutX="169.0" layoutY="101.0" />
+      <TextField fx:id="cpfField" layoutX="169.0" layoutY="138.0" />
+      <ButtonBar layoutX="79.0" layoutY="228.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" text="Confirmar" />
+            <Button mnemonicParsing="false" text="Cancelar" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

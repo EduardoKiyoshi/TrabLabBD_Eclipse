@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 
+import emissoralabbd.MainApp;
 import model.Dependente;
 import model.DependenteDAO;
 import model.Funcionario;
@@ -28,10 +29,10 @@ import util.ErrorHandler;
  * @author Marco Jakob
  */
 public class DependenteInsertDialogController {
-    @FXML
+    /*@FXML
     private Label idFu;
     @FXML
-    private Label nomeCompletoFu;
+    private Label nomeCompletoFu;*/
     @FXML
     private TextField nomeCompletoDe;
     @FXML
@@ -42,12 +43,11 @@ public class DependenteInsertDialogController {
     private TextField birthdayField;
     @FXML
     private ToggleGroup sexoDe;
-    @FXML
-    private ChoiceBox dependentes;
 
     private Stage dialogStage;
     private Funcionario funcionario;
     private boolean okClicked = false;
+	private MainApp mainApp;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -75,7 +75,9 @@ public class DependenteInsertDialogController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
-
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
     
 
     /**
@@ -99,7 +101,8 @@ public class DependenteInsertDialogController {
         	Connection conn = DBconnection.getConexao();
         	DependenteDAO dao = new  DependenteDAO(conn);
         	Dependente dep = new Dependente();
-        	dep.setIdFu(Integer.parseInt(idFu.getText()));
+        	
+        	dep.setIdFu(funcionario.getIdFu());
         	dep.setNomeCompletoDe(nomeCompletoDe.getText());
         	dep.setDataNascimentoDe(DateUtil.parse(birthdayField.getText()));
         	if(rMas.isSelected())
@@ -180,9 +183,9 @@ public class DependenteInsertDialogController {
      * 
      * @param person
      */
-    public void setFuncionario(Funcionario func) {
-        this.funcionario = func;
-        Connection conn = DBconnection.getConexao();
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+        /*Connection conn = DBconnection.getConexao();
         DependenteDAO dao = new DependenteDAO(conn);
     	ObservableList<Dependente> dependenteData = FXCollections.observableArrayList();        
     	ObservableList<String> dependenteDataNomes = FXCollections.observableArrayList();        
@@ -199,7 +202,7 @@ public class DependenteInsertDialogController {
         }catch (SQLException sqlex) {
         	//errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
-		}
+		}*/
     }
     
     

@@ -15,6 +15,8 @@ public class ErrorHandler {
             case 1: 
                 return "Já existe um item cadastrado com esses valores";
                 //alert.setContentText("Dependente j� cadastrado para esse funcion�rio!");
+            case 1858:    
+            	return "Data invalida";
             case 20002:
                 //Usando to_date1
                 return "Data inválida";
