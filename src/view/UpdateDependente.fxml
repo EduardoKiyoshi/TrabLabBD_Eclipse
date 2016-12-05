@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="300.0" prefWidth="370.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60">
+   <children>
+      <Label layoutX="38.0" layoutY="54.0" text="Data de Nascimento" />
+      <Label layoutX="38.0" layoutY="90.0" text="Sexo" />
+      <TextField layoutX="171.0" layoutY="50.0" />
+      <RadioButton layoutX="134.0" layoutY="90.0" mnemonicParsing="false" text="Masculino" />
+      <RadioButton layoutX="248.0" layoutY="90.0" mnemonicParsing="false" text="Feminino" />
+      <ButtonBar layoutX="64.0" layoutY="138.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" text="Confirmar" />
+            <Button mnemonicParsing="false" text="Cancelar" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>
