@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,4 +51,105 @@ public class ExibicaoJornalDAO {
         }
         return con;
     }
+    
+    public void insereExibicaoJornal(int idPr, int idFu, Date dataExJo, Timestamp horaInicio, 
+    		Timestamp horaFim, int ibope) throws SQLException{
+    	    	String query = "INSERT INTO exibicaoJornal (idPr, idFu, dataExJo, horaInicioExJo, "
+    	    					+ "horaFimExJo, ibopeExJo)"
+    	    					+" values(?, ?, ?, ?, ?, ?);";
+    	    					   
+    	    					   
+    	    	try{
+    	    		PreparedStatement pstmt = conn.prepareStatement(query);
+    	    		pstmt.setInt(1, idPr);
+    	    		pstmt.setInt(2, idFu);
+    	    		pstmt.setDate(3, dataExJo);
+    	    		pstmt.setTimestamp(4, horaInicio);
+    	    		pstmt.setTimestamp(5, horaFim);
+    	    		pstmt.setInt(6, ibope);
+    	    		
+    	    		pstmt.executeUpdate();
+    	    		
+    	    	}
+    	    	catch(SQLException sqlex){
+    	    		/*
+    	    		 * TODO
+    	    		 * Detectar tipo de erro (dado invalido ou falha de conexao)
+    	    		 * Criar alert dialog detalhando erro
+    	    		 */
+    	    		sqlex.printStackTrace();
+    	    		throw sqlex;
+    	    		
+    	    	}
+    	    	
+    	    }
+    
+    public void deletaExibeJornal(int idPr, int idFu, Date dataExJo, Timestamp horaInicio) throws SQLException{
+    	String query = "DELETE FROM JORNAL WHERE idPr = ? AND idFU = ? AND dataExJo = ? AND horaInicio = ?;";
+    	try{
+    		PreparedStatement pstmt = conn.prepareStatement(query);
+    		pstmt.setInt(1, idPr);
+    		pstmt.setInt(2, idFu);
+    		pstmt.setDate(3, dataExJo);
+    		pstmt.setTimestamp(4, horaInicio);
+    		
+    		pstmt.executeUpdate();
+    		
+    	}
+    	catch(SQLException sqlex){
+    		/*
+    		 * TODO
+    		 * Detectar tipo de erro (dado invalido ou falha de conexao)
+    		 * Criar alert dialog detalhando erro
+    		 */
+    		sqlex.printStackTrace();
+    		throw sqlex;
+    		
+    	}
+    }
+    
+    public void alteraExibicaoJornal(int idPr, int idFu, Date dataExJo, Timestamp horaInicio,
+    		int novoIdPr, int novoIdFu, Date novoDataExJo, Timestamp novoHoraInicio,
+    		Timestamp novoHoraFim, int novoIbope) throws SQLException{
+    	    	String query = "UPDATE exibicaoJornal "
+    	    					+"SET idPr = ?, "
+    	    					+"SET idFu = ?, "
+    	    					+"SET dataExJo = ?, "
+    	    					+"SET horaInicio = ?, "
+    	    					+"SET horaFim = ?, "
+    	    					+"SET ibope = ? "
+    	    					+"WHERE idPr = ? AND idFU = ? AND dataExJo = ? AND horaInicio = ?;";
+    	    					   
+    	    					   
+    	    	try{
+    	    		PreparedStatement pstmt = conn.prepareStatement(query);
+    	    		pstmt.setInt(1, novoIdPr);
+    	    		pstmt.setInt(2, novoIdFu);
+    	    		pstmt.setDate(3, novoDataExJo);
+    	    		pstmt.setTimestamp(4, novoHoraInicio);
+    	    		pstmt.setTimestamp(5, novoHoraFim);
+    	    		pstmt.setInt(6, novoIbope);
+    	    		pstmt.setInt(7, idPr);
+    	    		pstmt.setInt(8, idFu);
+    	    		pstmt.setDate(9, dataExJo);
+    	    		pstmt.setTimestamp(10, horaInicio);
+    	    		
+    	    		pstmt.executeUpdate();
+    	    		
+    	    	}
+    	    	catch(SQLException sqlex){
+    	    		/*
+    	    		 * TODO
+    	    		 * Detectar tipo de erro (dado invalido ou falha de conexao)
+    	    		 * Criar alert dialog detalhando erro
+    	    		 */
+    	    		sqlex.printStackTrace();
+    	    		throw sqlex;
+    	    		
+    	    	}
+    	    	
+    	    }
+    
+    //Consultas
+
 }

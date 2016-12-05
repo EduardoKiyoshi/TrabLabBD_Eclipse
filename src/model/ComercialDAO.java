@@ -64,4 +64,88 @@ public class ComercialDAO {
         }
         return con;
     }
+    
+    //Insere Comercial
+    public void insereComercial(String titulo, String descricao, int departamento)
+    	    throws SQLException{
+    	    	String query = "INSERT INTO comercial (idPr, tituloPr, descricaoPr, idDe)"
+    	    			+ "VALUES (SEQ_idPr.NEXTVAL, ?, ?, ?);";
+    	    					   
+    	    					   
+    	    	try{
+    	    		PreparedStatement pstmt = conn.prepareStatement(query);
+    	    		pstmt.setString(1, titulo);
+    	    		pstmt.setString(2, descricao);
+    	    		pstmt.setInt(3, departamento);
+    	    		
+    	    		pstmt.executeUpdate();
+    	    		
+    	    	}
+    	    	catch(SQLException sqlex){
+    	    		/*
+    	    		 * TODO
+    	    		 * Detectar tipo de erro (dado invalido ou falha de conexao)
+    	    		 * Criar alert dialog detalhando erro
+    	    		 */
+    	    		sqlex.printStackTrace();
+    	    		throw sqlex;
+    	    		
+    	    	}
+    	    	
+    }
+    
+    //Deleta comercial
+    public void deletaComercial(int idpr) throws SQLException{
+    	String query = "DELETE FROM COMERCIAL WHERE idPr = ?;";
+    	try{
+    		PreparedStatement pstmt = conn.prepareStatement(query);
+    		pstmt.setInt(1, idpr);
+    		
+    		pstmt.executeUpdate();
+    		
+    	}
+    	catch(SQLException sqlex){
+    		/*
+    		 * TODO
+    		 * Detectar tipo de erro (dado invalido ou falha de conexao)
+    		 * Criar alert dialog detalhando erro
+    		 */
+    		sqlex.printStackTrace();
+    		throw sqlex;
+    		
+    	}
+    }
+    
+    //Atualiza comercial de id
+    public void atualizaComercial(int idpr, String titulo, String descricao, int departamento) 
+    		throws SQLException{
+    	String query = "UPDATE JORNAL "+
+    				   "SET tituloPr = ?, "+
+    				   "SET descricaoPr = ?, "+
+    				   "SET idDe = ?, "+
+    				   "WHERE idPr = ?;";
+    					   
+    					   
+    	try{
+    		PreparedStatement pstmt = conn.prepareStatement(query);
+    		
+    		pstmt.setString(1, titulo);
+    		pstmt.setString(2, descricao);
+    		pstmt.setInt(3, departamento);
+    		pstmt.setInt(4, idpr);
+    		
+    		pstmt.executeUpdate();
+    		
+    	}
+    	catch(SQLException sqlex){
+    		/*
+    		 * TODO
+    		 * Detectar tipo de erro (dado invalido ou falha de conexao)
+    		 * Criar alert dialog detalhando erro
+    		 */
+    		sqlex.printStackTrace();
+    		throw sqlex;
+    	}
+    	
+    }
 }
