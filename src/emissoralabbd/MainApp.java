@@ -44,7 +44,7 @@ public class MainApp extends Application {
 
         initRootLayout();
            
-        showSelectTrabalho();
+        showFuncionarioOverview();
     }
 
     /**
