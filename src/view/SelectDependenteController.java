@@ -67,7 +67,7 @@ public class SelectDependenteController {
     @FXML
     private void handleAddDependente() {
         //Dependente selectedDependente = DependenteTable.getSelectionModel().getSelectedItem();
-        boolean okClicked = mainApp.showDependenteAddDialog(funcionario);
+         mainApp.showDependenteAddDialog(funcionario);
     }
     @FXML
     private void handleDeleteDependente() {
@@ -102,7 +102,7 @@ public class SelectDependenteController {
                 alert.setHeaderText("Sucesso na exclusao");
                 alert.showAndWait();
                 
-                dialogStage.close();
+                //dialogStage.close();
                 
             } else {
                 // Show the error message.
@@ -174,4 +174,8 @@ public class SelectDependenteController {
 		}
     }
     
+    @FXML
+    private void handleBackButton() {
+        mainApp.showFuncionarioOverview();
+    }
 }

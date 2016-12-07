@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="415.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SelectTrabalhoController">
    <children>
-      <TableView fx:id="trabalhoTable" layoutX="28.0" layoutY="29.0" prefHeight="200.0" prefWidth="548.0">
+      <TableView fx:id="trabalhoTable" layoutX="28.0" layoutY="43.0" prefHeight="200.0" prefWidth="548.0">
         <columns>
           <TableColumn fx:id="idFuColumn" prefWidth="104.0" text="Funcionário" />
           <TableColumn fx:id="idDeColumn" minWidth="8.0" prefWidth="105.0" text="Departamento" />
@@ -21,9 +21,9 @@
       </TableView>
       <ButtonBar layoutX="-3.0" layoutY="246.0" prefHeight="40.0" prefWidth="496.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Cadastrar Trabalho" />
-            <Button mnemonicParsing="false" text="Atualizar Trabalho" />
-            <Button mnemonicParsing="false" text="Excluir Trabalho" />
+          <Button mnemonicParsing="false" onAction="#handleAddTrabalho" text="Cadastrar Trabalho" />
+            <Button mnemonicParsing="false" onAction="#handleUpdateTrabalho" text="Atualizar Trabalho" />
+            <Button mnemonicParsing="false" onAction="#handleDeleteTrabalho" text="Excluir Trabalho" />
         </buttons>
       </ButtonBar>
       <TextField fx:id="dataTermino" layoutX="270.0" layoutY="337.0" />
@@ -33,5 +33,6 @@
       <Label layoutX="28.0" layoutY="309.0" text="Buscar trabalhos Iniciiados no departamento" />
       <Label layoutX="28.0" layoutY="341.0" text="entre" />
       <Label layoutX="248.0" layoutY="341.0" text="e" />
+      <Button layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBackButton" text="&lt; voltar" />
    </children>
 </AnchorPane>

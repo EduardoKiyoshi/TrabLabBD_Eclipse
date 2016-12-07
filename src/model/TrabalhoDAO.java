@@ -72,9 +72,13 @@ public class TrabalhoDAO {
 				+ "VALUES("
 				+ trab.getIdDe() + ","
 				+ trab.getIdFu() + ","
-				+ "TO_DATE('"	+ trab.getDataInicioTr() + "', 'DD/MM/YYYY'), "
-				+ "TO_DATE('"	+ trab.getDataFimTr() + "', 'DD/MM/YYYY')"
-				+ ")";	
+				+ "TO_DATE('"	+ trab.getDataInicioTr() + "', 'DD/MM/YYYY'), ";
+				if(trab.getDataFimTr() != null)
+					insertQuery = insertQuery + "TO_DATE('"	+ trab.getDataFimTr() + "', 'DD/MM/YYYY')"
+					+ ")";
+				else	
+					insertQuery = insertQuery + "null"
+					+ ")";
 		try{
 			st = conn.createStatement();
 			st.executeUpdate(insertQuery);
@@ -86,8 +90,14 @@ public class TrabalhoDAO {
 	}
     public boolean updateTrabalho(Trabalho oldTrab, LocalDate newDataFimTr) throws SQLException {
 		Statement st = null;
-		String insertQuery = "UPDATE TRABALHO SET dataFimTr = TO_DATE('" + DateUtil.format(newDataFimTr)+"', 'DD/MM/YYYY')" 
-		+ " WHERE IDDE = " + oldTrab.getIdDe() + " AND IDFU = " + oldTrab.getIdFu() +" AND DATAINICIOTR = TO_DATE('"+ oldTrab.getDataInicioTr()+"', 'DD/MM/YYYY')";
+		String insertQuery = "UPDATE TRABALHO SET dataFimTr = ";
+		if(newDataFimTr != null)
+			insertQuery = insertQuery + "TO_DATE('"	+ DateUtil.format(newDataFimTr) + "', 'DD/MM/YYYY')"
+			+ " WHERE IDDE = " + oldTrab.getIdDe() + " AND IDFU = " + oldTrab.getIdFu() +" AND DATAINICIOTR = TO_DATE('"+ oldTrab.getDataInicioTr()+"', 'DD/MM/YYYY')";
+		else	
+			insertQuery = insertQuery + "null"
+			+ " WHERE IDDE = " + oldTrab.getIdDe() + " AND IDFU = " + oldTrab.getIdFu() +" AND DATAINICIOTR = TO_DATE('"+ oldTrab.getDataInicioTr()+"', 'DD/MM/YYYY')";
+		
 		try{
 			st = conn.createStatement();
 			st.executeUpdate(insertQuery);
@@ -125,12 +135,17 @@ public class TrabalhoDAO {
     	Trabalho con = null;
         FuncionarioDAO funcionarioDAO = null;
         DepartamentoDAO departamentoDAO = null;
+        LocalDate dataFim = null;
         try{			
                 con = new Trabalho();
                 con.setIdFu(resultSet.getInt("idFu"));
                 con.setIdDe(resultSet.getInt("idDe"));	
-                con.setDataInicioTr(resultSet.getDate("dataInicioTr").toLocalDate());		
-                con.setDataFimTr(resultSet.getDate("dataFimTr").toLocalDate());
+                con.setDataInicioTr(resultSet.getDate("dataInicioTr").toLocalDate());
+                resultSet.getDate("dataFimTr");
+                if(resultSet.wasNull())
+                	con.setDataFimTr(DateUtil.parse("00/00/0000"));
+                else
+                	con.setDataFimTr(resultSet.getDate("dataFimTr").toLocalDate());
                 try{
                 	funcionarioDAO = new FuncionarioDAO(conn);
                 	departamentoDAO = new DepartamentoDAO(conn);

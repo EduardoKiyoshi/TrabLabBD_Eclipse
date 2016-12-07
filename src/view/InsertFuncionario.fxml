@@ -19,8 +19,8 @@
       <TextField fx:id="cpfField" layoutX="169.0" layoutY="138.0" />
       <ButtonBar layoutX="79.0" layoutY="228.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Confirmar" />
-            <Button mnemonicParsing="false" text="Cancelar" />
+          <Button fx:id="confirmarButton" mnemonicParsing="false" onAction="#handleOk" text="Confirmar" />
+            <Button fx:id="cancelarButton" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
         </buttons>
       </ButtonBar>
    </children>

@@ -40,7 +40,7 @@ public class Main extends Application {
 	    	dep.setDataNascimentoDe(DateUtil.parse("12/12/1212"));
 	    	dep.setSexoDe("F");
 	    	//daoDep.updateDependente(dep.getIdFu(), dep.getNomeCompletoDe(), dep);
-	    	
+	    	//Funcionario func = new Funcionario();
 	    	func.setIdFu(109);
 	    	func.setCpfFu("333.333.333-12");
 	    	String data = new String("12/12/2015");

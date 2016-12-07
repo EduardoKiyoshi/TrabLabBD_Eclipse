@@ -24,8 +24,6 @@ public class UpdateDependenteController {
 	@FXML
     private TextField dataNascimentoDe;
 	@FXML
-    private ChoiceBox tipoFu;
-	@FXML
     private RadioButton rFem;
     @FXML
     private RadioButton rMas;
@@ -37,7 +35,6 @@ public class UpdateDependenteController {
     private Button cancelar;
 	 // Reference to the main application.
     private MainApp mainApp;
-
     private Stage dialogStage;
     private Dependente Dependente;
     
@@ -53,7 +50,9 @@ public class UpdateDependenteController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
-    
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
     @FXML
     private void handleOk() {
     	String errorMessage = "";
@@ -71,16 +70,8 @@ public class UpdateDependenteController {
     		Dependente.setSexoDe("F");
     	else
     		Dependente.setSexoDe(null);
-    	/*
-    	if(rMas.isSelected())
-    		dep.setSexoDe("M");
-    	else if(rFem.isSelected())
-    		dep.setSexoDe("F");
-    	else
-    		dep.setSexoDe(null);*/
+    	
     	try{
-    		//conn.setAutoCommit(false);
-    		//Savepoint save1 = conn.setSavepoint();
     		dao.updateDependente(Dependente);
     		//conn.rollback(save1);
         }catch (SQLException sqlex) {

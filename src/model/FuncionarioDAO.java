@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import util.DateUtil;
 
 public class FuncionarioDAO {
 	private Connection conn;
@@ -54,11 +55,15 @@ public class FuncionarioDAO {
 		Statement st = null;
 		String insertQuery = "INSERT INTO FUNCIONARIO "
 				+ "VALUES("
-				+ "SEQ_idFu.NEXTVAL ,'"
-				+ func.getNomeCompletoFu() +"',"
-				+ " TO_DATE('" + func.getDataNascimentoFu() + "', 'DD/MM/YYYY'), '"
-				+ func.getCpfFu() +"',"
-				+ func.getSalarioFu() + ","
+				+ "SEQ_idFu.NEXTVAL ,"
+				+ "'" + func.getNomeCompletoFu() +"',";
+		
+			if(func.getDataNascimentoFu() != null)
+				insertQuery = insertQuery + "TO_DATE('"	+ func.getDataNascimentoFu() + "', 'DD/MM/YYYY'), ";						
+			else	
+				insertQuery = insertQuery + "null, ";
+				//+ " TO_DATE('" + func.getDataNascimentoFu() + "', 'DD/MM/YYYY'), "
+				insertQuery = insertQuery + "'"+ func.getCpfFu() +"', 0, "
 				+ func.getIdTipoFu()  + 
 				" )";	
 		try{
@@ -73,9 +78,13 @@ public class FuncionarioDAO {
 	public boolean updateFuncionario(int idFu, Funcionario newFunc) throws SQLException {
 		Statement st = null;
 		String insertQuery = "UPDATE FUNCIONARIO SET " +
-				" nomeCompletoFu = '"+ newFunc.getNomeCompletoFu() +"',"
-				+ " DATANASCIMENTOFU = TO_DATE('" + newFunc.getDataNascimentoFu() + "', 'DD/MM/YYYY'), "
-				+ " IDTIPOFU = " +newFunc.getIdTipoFu()  + 
+				" nomeCompletoFu = '"+ newFunc.getNomeCompletoFu() +"',";
+				if(newFunc.getDataNascimentoFu() != null)
+					insertQuery = insertQuery + "TO_DATE('"	+ newFunc.getDataNascimentoFu() + "', 'DD/MM/YYYY'), ";						
+				else	
+					insertQuery = insertQuery + "null, ";
+				//+ " DATANASCIMENTOFU = TO_DATE('" + newFunc.getDataNascimentoFu() + "', 'DD/MM/YYYY'), "
+				insertQuery = insertQuery + " IDTIPOFU = " +newFunc.getIdTipoFu()  + 
 				" WHERE IDFU = " + idFu;	
 		try{
 			st = conn.createStatement();
@@ -107,8 +116,14 @@ public class FuncionarioDAO {
 		try{			
 			fun = new Funcionario();
 			fun.setIdFu(resultSet.getInt("idFu"));
-			fun.setNomeCompletoFu(resultSet.getString("nomeCompletoFu"));			
-			fun.setDataNascimentoFu( resultSet.getDate("dataNascimentoFu").toLocalDate());
+			fun.setNomeCompletoFu(resultSet.getString("nomeCompletoFu"));		
+			
+			resultSet.getDate("dataNascimentoFu");
+			if(resultSet.wasNull())
+				fun.setDataNascimentoFu(DateUtil.parse("00/00/0000"));
+            else
+            	fun.setDataNascimentoFu(resultSet.getDate("dataNascimentoFu").toLocalDate());
+			//fun.setDataNascimentoFu( resultSet.getDate("dataNascimentoFu").toLocalDate());
 			fun.setCpfFu(resultSet.getString("cpfFu"));
 			fun.setSalarioFu(resultSet.getString("salarioFu"));
 			fun.setIdTipoFu(resultSet.getInt("idTipoFu"));

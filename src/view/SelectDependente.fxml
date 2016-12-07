@@ -29,6 +29,6 @@
             <Button mnemonicParsing="false" onAction="#handleDeleteDependente" text="Apagar Dependente" />
          </buttons>
       </ButtonBar>
-      <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" text="&lt; Voltar" />
+      <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBackButton" text="&lt; Voltar" />
    </children>
 </AnchorPane>

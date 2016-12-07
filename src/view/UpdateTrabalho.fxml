@@ -8,12 +8,12 @@
 
 <AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UpdateTrabalhoController">
    <children>
-      <Label layoutX="47.0" layoutY="48.0" text="Nova data de Término" />
+      <Label layoutX="47.0" layoutY="48.0" text="Nova data de Término" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="434.0" AnchorPane.topAnchor="48.0" />
       <TextField fx:id="dataTermino" layoutX="181.0" layoutY="44.0" />
-      <ButtonBar layoutX="107.0" layoutY="93.0" prefHeight="40.0" prefWidth="200.0">
+      <ButtonBar layoutX="107.0" layoutY="93.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="293.0" AnchorPane.topAnchor="93.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Confirmar" />
-            <Button mnemonicParsing="false" text="Cancelar" />
+          <Button mnemonicParsing="false" onAction="#handleOk" text="Confirmar" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
         </buttons>
       </ButtonBar>
    </children>

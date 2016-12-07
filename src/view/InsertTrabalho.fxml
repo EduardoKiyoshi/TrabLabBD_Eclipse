@@ -7,20 +7,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InsertTrabalho">
+<AnchorPane minHeight="300.0" minWidth="399.0" prefHeight="300.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InsertTrabalhoController">
    <children>
-      <Label layoutX="37.0" layoutY="43.0" text="Departamento" />
-      <Label layoutX="49.0" layoutY="82.0" text="Funcionario" />
+      <Label layoutX="37.0" layoutY="79.0" text="Departamento" />
       <Label layoutX="37.0" layoutY="122.0" text="Data de Início" />
       <Label layoutX="25.0" layoutY="164.0" text="Data de Témino" />
-      <ChoiceBox fx:id="departamento" layoutX="118.0" layoutY="39.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="funcionario" layoutX="118.0" layoutY="78.0" prefWidth="150.0" />
-      <TextField fx:id="dataInicio" layoutX="119.0" layoutY="118.0" />
-      <TextField fx:id="dataTermino" layoutX="119.0" layoutY="160.0" />
+      <ChoiceBox fx:id="departamentoChoiceBox" layoutX="118.0" layoutY="75.0" prefWidth="150.0" />
+      <TextField fx:id="dataInicioTr" layoutX="119.0" layoutY="118.0" />
+      <TextField fx:id="dataFimTr" layoutX="119.0" layoutY="160.0" />
       <ButtonBar layoutX="83.0" layoutY="202.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Cadastrar" />
-            <Button mnemonicParsing="false" text="Cancelar" />
+          <Button mnemonicParsing="false" onAction="#handleOk" text="Cadastrar" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
         </buttons>
       </ButtonBar>
    </children>

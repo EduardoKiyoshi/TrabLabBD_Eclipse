@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import emissoralabbd.MainApp;
+import javafx.beans.binding.Bindings;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -15,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Funcionario;
 import model.FuncionarioDAO;
 import model.Trabalho;
@@ -24,7 +27,7 @@ import util.ErrorHandler;
 
 public class SelectTrabalhoController {
 	@FXML
-    private TableView<Trabalho> trabalhoTable;
+    private TableView<Trabalho> trabalhoTable = new TableView<Trabalho>();
     @FXML
     private TableColumn<Trabalho, Integer> idDeColumn;
     @FXML
@@ -42,7 +45,7 @@ public class SelectTrabalhoController {
  // Reference to the main application.
     private MainApp mainApp;
     private Stage dialogStage;
-    
+    private Funcionario funcionario;
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -71,6 +74,7 @@ public class SelectTrabalhoController {
     
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+        
     }
     
     /**
@@ -83,54 +87,33 @@ public class SelectTrabalhoController {
 
         // Add observable list data to the table
         Connection conn = DBconnection.getConexao();        
-        TrabalhoDAO daoTr = new TrabalhoDAO(conn);
-        FuncionarioDAO daoFu = new FuncionarioDAO(conn);        
-        //DepartamentoDAO daoDe = new DepartamentoDAO(conn);
-        Funcionario func = new Funcionario();
-        func.setIdFu(2);
-        
-        try{
-        	daoFu.find(func.getIdFu()).getNomeCompletoFu();
-        	trabalhoTable.setItems(daoTr.find(func));        	
+        TrabalhoDAO daoTr = new TrabalhoDAO(conn);              
+        try{        	
+        	trabalhoTable.setItems(daoTr.find(funcionario));        	
         }catch (SQLException sqlex) {
 			System.out.println("SQL Error" + sqlex);		    
 		}
         
     }
-    /*@FXML
-    private void handleSelectDependente() {
-        Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
-        if (selectedTrabalho != null) {
-            boolean okClicked = mainApp.showSelectDependente(selectedTrabalho);
-
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
-
-            alert.showAndWait();
-        }
-    }
+    
     @FXML
-    private void handleAddDependente() {
+    private void handleAddTrabalho() {
         Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
-        if (selectedTrabalho != null) {
-            boolean okClicked = mainApp.showDependenteAddDialog(selectedTrabalho);
-
+        if (funcionario != null) {
+            boolean okClicked = mainApp.showInsertTrabalho(funcionario);
+            
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setHeaderText("No Funcionario Selected");
+            alert.setContentText("Please select a Funcionario in the table.");
 
             alert.showAndWait();
         }
     }
+    
     @FXML
     private void handleUpdateTrabalho() {
         Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
@@ -141,32 +124,18 @@ public class SelectTrabalhoController {
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setHeaderText("No Trabalho Selected");
+            alert.setContentText("Please select a Trabalho in the table.");
             
             alert.showAndWait();
         }
     }
-    @FXML
-    private void handleConsultarDependente() {
-        Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
-        if (selectedTrabalho != null) {
-           mainApp.showSelectDependente(selectedTrabalho);
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
-            
-            alert.showAndWait();
-        }
-    }
+    
     @FXML
     private void handleDeleteTrabalho() {
     	Connection conn = DBconnection.getConexao();
     	TrabalhoDAO dao = null;
+    	FuncionarioDAO daoFu = null;
         Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
         int selectedIndex = trabalhoTable.getSelectionModel().getSelectedIndex();
         String errorMessage = "";
@@ -184,6 +153,12 @@ public class SelectTrabalhoController {
 	        		dao = new TrabalhoDAO(conn);
 	        		dao.deleteTrabalho(selectedTrabalho.getIdFu());
 	        		trabalhoTable.getItems().remove(selectedIndex);
+	        		
+	        		if(Bindings.isEmpty(trabalhoTable.getItems()).get() == true){
+	        			System.out.println("Tabela vazia");
+	        			daoFu = new FuncionarioDAO(conn);
+	        			daoFu.deleteFuncionario(funcionario.getIdFu());
+	        		}
         		}catch (SQLException sqlex) {
                 	errorMessage += sqlex.getErrorCode();
         			System.out.println("SQL Error" + sqlex);		    
@@ -219,5 +194,13 @@ public class SelectTrabalhoController {
             alert.setContentText("Please select a person in the table.");
             alert.showAndWait();
         }
-    }*/
+    }
+    
+    public void setFuncionario(Funcionario funcionario){
+    	this.funcionario = funcionario;    	
+    }
+    @FXML
+    private void handleBackButton() {
+        mainApp.showFuncionarioOverview();
+    }
 }

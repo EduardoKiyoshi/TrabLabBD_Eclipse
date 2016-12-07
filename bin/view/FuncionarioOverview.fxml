@@ -13,12 +13,12 @@
    <children>
       <TableView fx:id="funcionarioTable" layoutX="14.0" layoutY="14.0" prefHeight="240.0" prefWidth="600.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="idFuColumn" prefWidth="75.0" text="C1" />
-          <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="C2" />
-            <TableColumn fx:id="dataNascColumn" prefWidth="100.0" text="Column X" />
-            <TableColumn fx:id="cpfFuColumn" prefWidth="155.0" text="Column X" />
-            <TableColumn fx:id="salarioFuColumn" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="descricaoTipoFuColumn" prefWidth="75.0" text="Column X" />
+          <TableColumn fx:id="idFuColumn" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome " />
+            <TableColumn fx:id="dataNascColumn" prefWidth="132.0" text="Data de Nascimento" />
+            <TableColumn fx:id="cpfFuColumn" prefWidth="152.0" text="CPF" />
+            <TableColumn fx:id="salarioFuColumn" prefWidth="71.0" text="Salário" />
+            <TableColumn fx:id="descricaoTipoFuColumn" prefWidth="91.0" text="Cargo" />
         </columns>
       </TableView>
       <ButtonBar layoutX="386.0" layoutY="253.0" prefHeight="40.0" prefWidth="200.0" />
@@ -28,14 +28,14 @@
       <TextField layoutX="312.0" layoutY="342.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="345.0" />
       <ButtonBar layoutX="88.0" layoutY="253.0" prefHeight="40.0" prefWidth="425.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="87.0">
         <buttons>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Inserir Funcionário" />
+            <Button mnemonicParsing="false" onAction="#handleInsertFuncionario" prefHeight="25.0" prefWidth="129.0" text="Inserir Funcionário" />
             <Button mnemonicParsing="false" onAction="#handleUpdateFuncionario" text="Atualizar Dados" />
             <Button mnemonicParsing="false" onAction="#handleDeleteFuncionario" text="Apagar Funcionario" />
         </buttons>
       </ButtonBar>
       <ButtonBar layoutX="133.0" layoutY="288.0" prefHeight="40.0" prefWidth="348.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Consultar Trabalho" />
+          <Button mnemonicParsing="false" onAction="#handleConsultarTrabalho" text="Consultar Trabalho" />
             <Button mnemonicParsing="false" onAction="#handleSelectDependente" prefHeight="25.0" prefWidth="163.0" text="Consultar Dependentes" />
         </buttons>
       </ButtonBar>

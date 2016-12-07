@@ -2,20 +2,28 @@ package emissoralabbd;
 
 import java.io.IOException;
 
+import com.sun.prism.paint.Color;
+
 import consultas_parte2.AtorDependenteOverviewController;
 import consultas_parte2.TodosFuncionariosController;
 import consultas_parte2.TrabalhoTodosDepartamentosOverviewController;
 import model.Dependente;
 import model.Funcionario;
+import model.Trabalho;
+import util.DateUtil;
 import view.DependenteInsertDialogController;
 import view.FuncionarioOverviewController;
+import view.InsertFuncionarioController;
+import view.InsertTrabalhoController;
 import view.SelectDependenteController;
 import view.SelectTrabalhoController;
 import view.UpdateDependenteController;
 import view.UpdateFuncionarioController;
+import view.UpdateTrabalhoController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -28,7 +36,6 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-    private FuncionarioOverviewController stage1Controller ;
     /**
      * Constructor
      */
@@ -40,11 +47,21 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("AddressApp");        
 
         initRootLayout();
-           
-        showFuncionarioOverview();
+
+        Funcionario func = new Funcionario();
+    	func.setIdFu(1);
+    	func.setCpfFu("333.333.333-12");
+    	String data = new String("12/12/2015");
+    	func.setDataNascimentoFu(DateUtil.parse(data));
+    	func.setIdTipoFu(1);
+    	func.setNomeCompletoFu("Ana Barbosa");
+    	func.setSalarioFu("1200");
+    	
+    	showFuncionarioOverview();
+    	//showAtorDependenteOverview();
     }
 
     /**
@@ -66,6 +83,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+    //Consultadas implementas na Parte 2
     public void showAtorDependenteOverview() {
         try {
             // Load person overview.
@@ -79,44 +97,6 @@ public class MainApp extends Application {
             // Give the controller access to the main app.
             AtorDependenteOverviewController controller = loader.getController();
             controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void showTodosFuncionariosOverview() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/consultas_parte2/TodosFuncionarios.fxml"));
-            AnchorPane asd = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(asd);
-
-            // Give the controller access to the main app.
-            TodosFuncionariosController controller = loader.getController();
-            controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void showFuncionarioOverview() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/FuncionarioOverview.fxml"));
-            AnchorPane FuncionarioOverview = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(FuncionarioOverview);
-
-            // Give the controller access to the main app.
-            //FuncionarioOverviewController controller = loader.getController();
-            //controller.setMainApp(this);
-            stage1Controller = loader.getController();
-            stage1Controller.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -139,43 +119,52 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    public boolean showSelectDependente(Funcionario selectedFuncionario) {
+    }    
+    public void showTodosFuncionariosOverview() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
+            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/SelectDependente.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            loader.setLocation(MainApp.class.getResource("/consultas_parte2/TodosFuncionarios.fxml"));
+            AnchorPane asd = (AnchorPane) loader.load();
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(asd);
 
-            // Set the person into the controller.
-            SelectDependenteController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setFuncionario(selectedFuncionario);
-            
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-            
-            return true;
+            // Give the controller access to the main app.
+            TodosFuncionariosController controller = loader.getController();
+            controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
-    public boolean showDependenteAddDialog(Funcionario selectedFuncionario) {
+    
+    public void showFuncionarioOverview() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
+            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/DependenteInsertDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/FuncionarioOverview.fxml"));
+            AnchorPane FuncionarioOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(FuncionarioOverview);
+
+            // Give the controller access to the main app.
+            FuncionarioOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void showInsertFuncionario() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/InsertFuncionario.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
+            // Set person overview into the center of root layout.
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Person");
@@ -183,18 +172,25 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
-            // Set the person into the controller.
-            DependenteInsertDialogController controller = loader.getController();
+            
+            InsertFuncionarioController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setFuncionario(selectedFuncionario);
+            Funcionario novoFuncionario = controller.getFuncionario();
             
-            // Show the dialog and wait until the user closes it
+            //System.out.println(novoFuncionario.getNomeCompletoFu());
             
-            return controller.isOkClicked();
+			dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
+			    public void handle(WindowEvent we) {
+			        showFuncionarioOverview();
+			    }
+			});
+            
+            // Give the controller access to the main app.
+            
+            
+            dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
     public boolean showUpdateFuncionario(Funcionario selectedFuncionario){
@@ -216,15 +212,7 @@ public class MainApp extends Application {
             UpdateFuncionarioController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setFuncionario(selectedFuncionario);
-            /*controller.setStage2Controller(stage1Controller);
             
-            dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we) {
-                	FuncionarioOverviewController controller = loader.getController();
-                	stage1Controller.updateTable();
-                    System.out.println("Stage is closing");
-                }
-            });*/
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
@@ -235,13 +223,67 @@ public class MainApp extends Application {
         }
     	
     }
+    
+    public boolean showSelectDependente(Funcionario selectedFuncionario) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/SelectDependente.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            rootLayout.setCenter(page);
+            
+            // Set the person into the controller.
+            SelectDependenteController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setFuncionario(selectedFuncionario);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }    
+    public boolean showDependenteAddDialog(Funcionario selectedFuncionario) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/DependenteInsertDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Person");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            DependenteInsertDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setFuncionario(selectedFuncionario);
+            dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                	showSelectDependente(selectedFuncionario);
+                }
+            });          
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }    
     public boolean showUpdateDependente(Dependente selectedDependente){
+
     	try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/view/UpdateDependente.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-
+            //rootLayout.setCenter(page);
+            
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Dependente");
@@ -249,20 +291,12 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
+             
             // Set the person into the controller.
             UpdateDependenteController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setDependente(selectedDependente);
-            /*controller.setStage2Controller(stage1Controller);
-            
-            dialogStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we) {
-                	FuncionarioOverviewController controller = loader.getController();
-                	stage1Controller.updateTable();
-                    System.out.println("Stage is closing");
-                }
-            });*/
+            //controller.setMainApp(this);
+            controller.setDependente(selectedDependente);            
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
@@ -273,7 +307,8 @@ public class MainApp extends Application {
         }
     	
     }
-    public void showSelectTrabalho() {
+    
+    public void showSelectTrabalho(Funcionario selectedFuncionario) {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -284,11 +319,74 @@ public class MainApp extends Application {
             rootLayout.setCenter(asd);
 
             // Give the controller access to the main app.
-            SelectTrabalhoController controller = loader.getController();
+            SelectTrabalhoController controller = loader.getController();   
+            controller.setFuncionario(selectedFuncionario);
             controller.setMainApp(this);
-
+            
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public boolean showInsertTrabalho(Funcionario selectedFuncionario) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/InsertTrabalho.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Person");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Set the person into the controller.
+            InsertTrabalhoController controller = loader.getController();
+            //controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.setFuncionario(selectedFuncionario);
+            dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    showSelectTrabalho(selectedFuncionario);
+                }
+            });          
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean showUpdateTrabalho(Trabalho trabalho) {
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/UpdateTrabalho.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Person");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+         // Set the person into the controller.
+            UpdateTrabalhoController controller = loader.getController();
+            //controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.setTrabalho(trabalho);
+            
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
     /**

@@ -23,9 +23,13 @@ public class GerenciaDAO {
 				+ "VALUES("
 				+ trab.getIdDe() + ","
 				+ trab.getIdFu() + ","
-				+ "TO_DATE('"	+ trab.getDataInicioGe() + "', 'DD/MM/YYYY'), "
-				+ "TO_DATE('"	+ trab.getDataFimGe() + "', 'DD/MM/YYYY')"
-				+ ")";	
+				+ "TO_DATE('"	+ trab.getDataInicioGe() + "', 'DD/MM/YYYY'), ";
+				if(trab.getDataFimGe() != null)
+					insertQuery = insertQuery + "TO_DATE('"	+ trab.getDataFimGe() + "', 'DD/MM/YYYY')"
+					+ ")";
+				else	
+					insertQuery = insertQuery + "null"
+					+ ")";
 		try{
 			st = conn.createStatement();
 			st.executeUpdate(insertQuery);
@@ -37,8 +41,15 @@ public class GerenciaDAO {
 	}
     public boolean updateGerencia(Gerencia oldTrab, LocalDate newDATAFIMGE) throws SQLException {
 		Statement st = null;
-		String insertQuery = "UPDATE Gerencia SET DATAFIMGE = TO_DATE('" + DateUtil.format(newDATAFIMGE)+"', 'DD/MM/YYYY')" 
-		+ " WHERE IDDE = " + oldTrab.getIdDe() + " AND IDFU = " + oldTrab.getIdFu() +" AND DATAINICIOGE = TO_DATE('"+ oldTrab.getDataInicioGe()+"', 'DD/MM/YYYY')";
+		String insertQuery = "UPDATE Gerencia SET DATAFIMGE = ";
+		if(newDATAFIMGE != null)
+			insertQuery = insertQuery + "TO_DATE('"	+ DateUtil.format(newDATAFIMGE) + "', 'DD/MM/YYYY')"
+					+ " WHERE IDDE = " + oldTrab.getIdDe() + " AND IDFU = " + oldTrab.getIdFu() +" AND DATAINICIOGE = TO_DATE('"+ oldTrab.getDataInicioGe()+"', 'DD/MM/YYYY')";
+		else	
+			insertQuery = insertQuery + "null"
+			+ ")";
+		
+		
 		try{
 			st = conn.createStatement();
 			st.executeUpdate(insertQuery);
@@ -113,8 +124,13 @@ public class GerenciaDAO {
                 con = new Gerencia();
                 con.setIdFu(resultSet.getInt("idPr"));
                 con.setIdDe(resultSet.getInt("idDe"));	
-                con.setDataInicioGe(resultSet.getDate("dataInicioGe").toLocalDate());		
-                con.setDataFimGe(resultSet.getDate("dataFimGe").toLocalDate());
+                con.setDataInicioGe(resultSet.getDate("dataInicioGe").toLocalDate());	
+                
+                resultSet.getDate("dataFimGe");
+                if(resultSet.wasNull())
+                	con.setDataFimGe(DateUtil.parse("00/00/0000"));
+                else
+                	con.setDataFimGe(resultSet.getDate("dataFimGe").toLocalDate());                
                 try{
                 	funcionarioDAO = new FuncionarioDAO(conn);
                 	departamentoDAO = new DepartamentoDAO(conn);

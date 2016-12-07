@@ -22,9 +22,9 @@
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
         </buttons>
       </ButtonBar>
-      <Label fx:id="idFu" layoutX="160.0" layoutY="38.0" text="Label" />
+      <Label layoutX="160.0" layoutY="38.0" text="Label" />
       <Label layoutX="31.0" layoutY="38.0" text="Nome Funcionario" />
-      <Label fx:id="nomeCompletoFu" layoutX="160.0" layoutY="72.0" text="Label" />
+      <Label layoutX="160.0" layoutY="72.0" text="Label" />
       <RadioButton fx:id="rMas" layoutX="188.0" layoutY="185.0" mnemonicParsing="false" text="Masculino">
          <toggleGroup>
             <ToggleGroup fx:id="sexoDe" />

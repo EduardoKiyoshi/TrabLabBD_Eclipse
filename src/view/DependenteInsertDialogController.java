@@ -112,10 +112,7 @@ public class DependenteInsertDialogController {
         	else
         		dep.setSexoDe(null);
         	try{
-        		conn.setAutoCommit(false);
-        		Savepoint save1 = conn.setSavepoint();
         		dao.insertDependente(dep);  
-        		conn.rollback(save1);
             }catch (SQLException sqlex) {
             	errorMessage += sqlex.getErrorCode();
     			System.out.println("SQL Error" + sqlex);		    

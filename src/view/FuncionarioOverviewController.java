@@ -13,10 +13,12 @@ import model.FuncionarioDAO;
 import util.DBconnection;
 import util.DateUtil;
 import util.ErrorHandler;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -109,21 +111,9 @@ public class FuncionarioOverviewController {
         }
     }
     @FXML
-    private void handleAddDependente() {
-        Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
-        if (selectedFuncionario != null) {
-            boolean okClicked = mainApp.showDependenteAddDialog(selectedFuncionario);
-
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
-
-            alert.showAndWait();
-        }
+    private void handleInsertFuncionario() {
+        mainApp.showInsertFuncionario();    
+        
     }
     @FXML
     private void handleUpdateFuncionario() {
@@ -146,6 +136,22 @@ public class FuncionarioOverviewController {
         Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
         if (selectedFuncionario != null) {
            mainApp.showSelectDependente(selectedFuncionario);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+            
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    private void handleConsultarTrabalho() {
+        Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
+        if (selectedFuncionario != null) {
+           mainApp.showSelectTrabalho(selectedFuncionario);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);

@@ -7,18 +7,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="300.0" prefWidth="370.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60">
+<AnchorPane prefHeight="300.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UpdateDependenteController">
    <children>
       <Label layoutX="38.0" layoutY="54.0" text="Data de Nascimento" />
       <Label layoutX="38.0" layoutY="90.0" text="Sexo" />
-      <TextField layoutX="171.0" layoutY="50.0" />
-      <RadioButton layoutX="134.0" layoutY="90.0" mnemonicParsing="false" text="Masculino" />
-      <RadioButton layoutX="248.0" layoutY="90.0" mnemonicParsing="false" text="Feminino" />
+      <TextField fx:id="dataNascimentoDe" layoutX="171.0" layoutY="50.0" />
+      <RadioButton fx:id="rMas" layoutX="134.0" layoutY="90.0" mnemonicParsing="false" text="Masculino" />
+      <RadioButton fx:id="rFem" layoutX="248.0" layoutY="90.0" mnemonicParsing="false" text="Feminino" />
       <ButtonBar layoutX="64.0" layoutY="138.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Confirmar" />
-            <Button mnemonicParsing="false" text="Cancelar" />
+          <Button mnemonicParsing="false" onAction="#handleOk" text="Confirmar" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
         </buttons>
       </ButtonBar>
    </children>

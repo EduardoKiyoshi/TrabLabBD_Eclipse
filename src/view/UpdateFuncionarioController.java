@@ -3,6 +3,8 @@ package view;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.util.HashMap;
+import java.util.Map;
 
 import emissoralabbd.MainApp;
 import javafx.collections.FXCollections;
@@ -19,6 +21,8 @@ import model.Dependente;
 import model.DependenteDAO;
 import model.Funcionario;
 import model.FuncionarioDAO;
+import model.TipoFuncionario;
+import model.TipoFuncionarioDAO;
 import util.DBconnection;
 import util.DateUtil;
 import util.ErrorHandler;
@@ -29,28 +33,36 @@ public class UpdateFuncionarioController {
 	@FXML
     private TextField dataNascimentoFu;
 	@FXML
-    private ChoiceBox tipoFu;
+	private ChoiceBox<String> idTipoBox;
 	@FXML
     private Button confirmar;
 	@FXML
     private Button cancelar;
-	 // Reference to the main application.
-    private MainApp mainApp;
 
     private Stage dialogStage;
     private Funcionario funcionario;
-    
-    @FXML
+    private ObservableList<String> tipoFuncList;
+	private Map<String, Integer> tipoDescricao;
+	private MainApp mainApp;
+	
+	@FXML
     private void initialize() {
-    	/*DependenteDAO dao = new DependenteDAO(conn);
-    	ObservableList<Dependente> dependenteData = FXCollections.observableArrayList();
-    	try{
-    		dependenteData = dao.find(funcionario);     
-    		tipoFu.setItems(dependenteData);
-        }catch (SQLException sqlex) {
-        	//errorMessage += sqlex.getErrorCode();
+		Connection conn = DBconnection.getConexao();
+		TipoFuncionarioDAO daoTipo = new TipoFuncionarioDAO(conn);		
+		ObservableList<TipoFuncionario> tipoData = FXCollections.observableArrayList();
+		tipoFuncList = FXCollections.observableArrayList();
+		tipoDescricao = new HashMap<String,Integer>();
+		try{
+			tipoData = daoTipo.findAll();
+			for(TipoFuncionario e : tipoData){	
+				tipoDescricao.put(e.getDescricaoTipoFu(), e.getIdTipoFu());
+				tipoFuncList.add(e.getDescricaoTipoFu());
+			}
+			idTipoBox.setItems(tipoFuncList);
+	    }catch (SQLException sqlex) {
+	    	//errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
-		}*/
+		}
     }
 
     /**
@@ -74,17 +86,13 @@ public class UpdateFuncionarioController {
     	funcionario.setNomeCompletoFu(nomeFu.getText());
     	funcionario.setDataNascimentoFu(DateUtil.parse(dataNascimentoFu.getText()));
     	
-    	funcionario.setIdTipoFu(2);
-    	/*
-    	if(rMas.isSelected())
-    		dep.setSexoDe("M");
-    	else if(rFem.isSelected())
-    		dep.setSexoDe("F");
-    	else
-    		dep.setSexoDe(null);*/
+
+    	funcionario.setIdTipoFu(tipoDescricao.get(
+    				idTipoBox.getValue().toString()        			
+    			)
+    	);
+    	
     	try{
-    		//conn.setAutoCommit(false);
-    		//Savepoint save1 = conn.setSavepoint();
     		dao.updateFuncionario(funcionario.getIdFu(), funcionario);
     		//conn.rollback(save1);
         }catch (SQLException sqlex) {
