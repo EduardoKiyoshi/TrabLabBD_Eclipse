@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+	 <children>
+      <TableView fx:id="temporadaSerieTable" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="576.0">
+        <columns>
+          <TableColumn fx:id="nroTemporadaColumn" prefWidth="75.0" text="C1" />
+            <TableColumn fx:id="nrpEpisodiosColumn" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="descricaoColumn" prefWidth="75.0" text="C3" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
+
