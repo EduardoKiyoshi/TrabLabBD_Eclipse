@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="filmesTable" layoutX="14.0" layoutY="14.0" prefHeight="380.0" prefWidth="570.0">
+        <columns>
+          <TableColumn fx:id="tituloColumn" prefWidth="75.0" text="C1" />
+            <TableColumn fx:id="departamentoColumn" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="producaoColumn" prefWidth="75.0" text="C3" />
+            <TableColumn fx:id="anoLancamentoColumn" prefWidth="75.0" text="C4" />
+            <TableColumn fx:id="duracaoColumn" prefWidth="75.0" text="C5" />
+             <TableColumn fx:id="generoColumn" prefWidth="75.0" text="C6" />
+              <TableColumn fx:id="descricaoColumn" prefWidth="75.0" text="C7" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
