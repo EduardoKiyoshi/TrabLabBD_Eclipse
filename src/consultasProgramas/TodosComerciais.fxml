@@ -10,9 +10,9 @@
    <children>
       <TableView fx:id="comercialTable" layoutX="14.0" layoutY="14.0" prefHeight="339.0" prefWidth="570.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
         <columns>
-          <TableColumn fx:id="tituloColumn" prefWidth="75.0" text="C1" />
-          <TableColumn fx:id="departamentoColumn" prefWidth="75.0" text="C2" />
-            <TableColumn fx:id="descricaoColumn" prefWidth="75.0" text="C3" />
+          <TableColumn fx:id="tituloColumn" prefWidth="75.0" text="Título" />
+          <TableColumn fx:id="departamentoColumn" prefWidth="75.0" text="Departamento" />
+            <TableColumn fx:id="descricaoColumn" prefWidth="75.0" text="Descriçaõ" />
         </columns>
       </TableView>
       <Button fx:id="btnInserir" layoutX="14.0" layoutY="360.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="Inserir" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="479.0" />

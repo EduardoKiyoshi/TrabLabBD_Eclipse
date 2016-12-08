@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,4 +51,75 @@ public class ExibicaoJornalDAO {
         }
         return con;
     }
+    
+    public boolean deleteExibicaoJornal(ExibicaoJornal jor) throws SQLException{
+    	PreparedStatement st = null;
+		String insertQuery = "DELETE FROM EXIBICAOJORNAL WHERE IDPR = ? AND IDFU = ? AND DATAEXJO = ?"
+				+ "AND HORAINICIOEXJO = ? AND HORAFIMEXJO = ?;";
+		try{
+			st = conn.prepareStatement(insertQuery);
+			st.setInt(1, jor.getIdPr());
+			st.setInt(2, jor.getIdFu());
+			st.setString(3, jor.getDataExJo());
+			st.setTimestamp(4, Timestamp.valueOf(jor.getHoraInicioExJo().toString()));
+			st.setTimestamp(5, Timestamp.valueOf(jor.getHoraFimExJo().toString()));
+			st.executeUpdate(insertQuery);
+			return true;
+		}catch (SQLException sqlex) {
+		      System.out.println("SQL Error" + sqlex);
+		      throw sqlex;
+		}		
+    }
+    
+    public boolean insertExibicaoJornal(ExibicaoJornal jor) throws SQLException {
+  		PreparedStatement pstmt = null;
+  		String insertQuery = "INSERT INTO exibicaoJornal (idPr, idFu, dataExJo, horaInicioExJo, horaFimExJo, ibopeExJo)"
+  				+ "VALUES(?, ?, ?, ?, ?, ?);";
+  		try{
+  			pstmt = conn.prepareStatement(insertQuery);
+  			pstmt.setInt(1, jor.getIdPr());
+  			pstmt.setInt(2, jor.getIdFu());
+  			pstmt.setString(3, jor.getDataExJo());
+  			pstmt.setTimestamp(4, Timestamp.valueOf(jor.getHoraInicioExJo().toString()));
+  			pstmt.setTimestamp(5, Timestamp.valueOf(jor.getHoraFimExJo().toString()));
+  			pstmt.setInt(6, jor.getIbopeExJo());
+  			pstmt.executeUpdate(insertQuery);
+  			return true;
+  		}catch (SQLException sqlex) {
+  		      System.out.println("SQL Error" + sqlex);
+  		      throw sqlex;
+  		}		
+  	}
+    
+      public boolean updateExibicaoJornal(ExibicaoJornal jor, ExibicaoJornal jorNovo) throws SQLException {
+  		PreparedStatement st = null;
+  		String insertQuery = "UPDATE EXIBICAOJORNAL SET idPr = ?"
+  				+ "SET idFu = ?, "
+  				+ "dataExJo = ?, "
+  				+ "horaInicioExJo = ?, "
+  				+ "horaFimExJo = ?, "
+  				+ "ibopeExJo = ?"
+  				+ "WHERE IDPR = ? AND IDFU = ? AND DATAEXJO = ?"
+				+ "AND HORAINICIOEXJO = ? AND HORAFIMEXJO = ?;";
+
+  		try{
+  			st = conn.prepareStatement(insertQuery);
+  			st.setInt(1, jorNovo.getIdPr());
+  			st.setInt(2, jorNovo.getIdFu());
+  			st.setString(3, jorNovo.getDataExJo());
+  			st.setTimestamp(4, Timestamp.valueOf(jorNovo.getHoraInicioExJo().toString()));
+  			st.setTimestamp(5, Timestamp.valueOf(jorNovo.getHoraFimExJo().toString()));
+  			st.setInt(6, jorNovo.getIbopeExJo());
+  			st.setInt(7, jor.getIdPr());
+  			st.setInt(8, jor.getIdFu());
+  			st.setString(9, jor.getDataExJo());
+  			st.setTimestamp(10, Timestamp.valueOf(jor.getHoraInicioExJo().toString()));
+  			st.setTimestamp(11, Timestamp.valueOf(jor.getHoraFimExJo().toString()));
+  			st.executeUpdate(insertQuery);
+  			return true;
+  		}catch (SQLException sqlex) {
+  		      System.out.println("SQL Error" + sqlex);
+  		      throw sqlex;
+  		}
+     }
 }

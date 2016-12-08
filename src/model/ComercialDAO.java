@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -64,4 +66,54 @@ public class ComercialDAO {
         }
         return con;
     }
+   
+    public boolean deleteComercial(int idPr) throws SQLException{
+    	Statement st = null;
+		String insertQuery = "DELETE FROM COMERCIAL WHERE IDPR = "+Integer.toString(idPr)+";";
+		try{
+			st = conn.createStatement();
+			st.executeUpdate(insertQuery);
+			return true;
+		}catch (SQLException sqlex) {
+		      System.out.println("SQL Error" + sqlex);
+		      throw sqlex;
+		}		
+    }
+    
+    public boolean insertComercial(Comercial comer) throws SQLException {
+  		PreparedStatement pstmt = null;
+  		String insertQuery = "INSERT INTO comercial (idPr, tituloPr, descricaoPr, idDe)"
+  				+ "VALUES(SEQ_idPr.NEXTVAL, ?, ?, ?);";
+  		try{
+  			pstmt = conn.prepareStatement(insertQuery);
+  			pstmt.setString(1, comer.getTituloPr());
+  			pstmt.setString(2, comer.getDescricaoPr());
+  			pstmt.setInt(3, comer.getIdDe());
+  			pstmt.executeUpdate(insertQuery);
+  			return true;
+  		}catch (SQLException sqlex) {
+  		      System.out.println("SQL Error" + sqlex);
+  		      throw sqlex;
+  		}		
+  	}
+    
+      public boolean updateComercial(Comercial comer) throws SQLException {
+  		PreparedStatement st = null;
+  		String insertQuery = "UPDATE TRABALHO SET tituloPr = ?, "
+  				+ "descricaoPr = ?, "
+  				+ "idDe = ? "
+  				+ "WHERE IDPR = ?;";
+
+  		try{
+  			st = conn.prepareStatement(insertQuery);
+  			st.setString(1, comer.getTituloPr());
+  			st.setString(2, comer.getDescricaoPr());
+  			st.setInt(3, comer.getIdDe());
+  			st.executeUpdate(insertQuery);
+  			return true;
+  		}catch (SQLException sqlex) {
+  		      System.out.println("SQL Error" + sqlex);
+  		      throw sqlex;
+  		}
+     }
 }
