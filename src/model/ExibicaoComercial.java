@@ -8,6 +8,10 @@ package model;
 
 
 import util.DateUtil;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,7 +23,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author lenovo
  */
-public class ExibicaoComercial {
+public class ExibicaoComercial{
     private IntegerProperty idPr;
     private ObjectProperty<LocalDate> dataExCo;
     private ObjectProperty<LocalTime>  horaInicioExCo;
