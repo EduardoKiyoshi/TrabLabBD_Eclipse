@@ -53,16 +53,14 @@ public class ExibicaoJornalDAO {
     }
     
     public boolean deleteExibicaoJornal(ExibicaoJornal jor) throws SQLException{
-    	PreparedStatement st = null;
-		String insertQuery = "DELETE FROM EXIBICAOJORNAL WHERE IDPR = ? AND IDFU = ? AND DATAEXJO = ?"
-				+ "AND HORAINICIOEXJO = ? AND HORAFIMEXJO = ?;";
+    	Statement st = null;
+		String insertQuery = "DELETE FROM EXIBICAOJORNAL "
+				+ "WHERE IDPR = "+jor.getIdPr()+" "
+				+ "AND IDFU = "+jor.getIdFu()+" "
+				+ "AND DATAEXJO = TO_DATE('"+jor.getDataExJo()+"')"
+				+ "AND HORAINICIOEXJO = TO_TIMESTAMP('"+jor.getHoraInicioExJo()+"','HH24:MI:SS');";
 		try{
-			st = conn.prepareStatement(insertQuery);
-			st.setInt(1, jor.getIdPr());
-			st.setInt(2, jor.getIdFu());
-			st.setString(3, jor.getDataExJo());
-			st.setTimestamp(4, Timestamp.valueOf(jor.getHoraInicioExJo().toString()));
-			st.setTimestamp(5, Timestamp.valueOf(jor.getHoraFimExJo().toString()));
+			st = conn.createStatement();
 			st.executeUpdate(insertQuery);
 			return true;
 		}catch (SQLException sqlex) {
@@ -72,17 +70,17 @@ public class ExibicaoJornalDAO {
     }
     
     public boolean insertExibicaoJornal(ExibicaoJornal jor) throws SQLException {
-  		PreparedStatement pstmt = null;
+  		Statement pstmt = null;
   		String insertQuery = "INSERT INTO exibicaoJornal (idPr, idFu, dataExJo, horaInicioExJo, horaFimExJo, ibopeExJo)"
-  				+ "VALUES(?, ?, ?, ?, ?, ?);";
+  				+ "VALUES("+jor.getIdPr()+", "
+  				+ ""+jor.getIdFu()+", "
+  				+ "TO_DATE('"+jor.getDataExJo()+"','DD/MM/YYYY'), "
+  				+ "TO_TIMESTAMP('"+jor.getHoraInicioExJo()+"','HH24:MI:SS'), "
+  				+ "TO_TIMESTAMP('"+jor.getHoraFimExJo()+"','HH24:MI:SS'), "
+  				+ ""+jor.getIbopeExJo()+");";
+
   		try{
-  			pstmt = conn.prepareStatement(insertQuery);
-  			pstmt.setInt(1, jor.getIdPr());
-  			pstmt.setInt(2, jor.getIdFu());
-  			pstmt.setString(3, jor.getDataExJo());
-  			pstmt.setTimestamp(4, Timestamp.valueOf(jor.getHoraInicioExJo().toString()));
-  			pstmt.setTimestamp(5, Timestamp.valueOf(jor.getHoraFimExJo().toString()));
-  			pstmt.setInt(6, jor.getIbopeExJo());
+  			pstmt = conn.createStatement();
   			pstmt.executeUpdate(insertQuery);
   			return true;
   		}catch (SQLException sqlex) {
@@ -92,29 +90,19 @@ public class ExibicaoJornalDAO {
   	}
     
       public boolean updateExibicaoJornal(ExibicaoJornal jor, ExibicaoJornal jorNovo) throws SQLException {
-  		PreparedStatement st = null;
-  		String insertQuery = "UPDATE EXIBICAOJORNAL SET idPr = ?"
-  				+ "SET idFu = ?, "
-  				+ "dataExJo = ?, "
-  				+ "horaInicioExJo = ?, "
-  				+ "horaFimExJo = ?, "
-  				+ "ibopeExJo = ?"
-  				+ "WHERE IDPR = ? AND IDFU = ? AND DATAEXJO = ?"
-				+ "AND HORAINICIOEXJO = ? AND HORAFIMEXJO = ?;";
+  		Statement st = null;
+  		String insertQuery = "UPDATE EXIBICAOJORNAL SET idPr = "+jorNovo.getIdPr()+""
+  				+ "SET idFu = "+jorNovo.getIdFu()+", "
+  				+ "dataExJo = TO_DATE('"+jorNovo.getDataExJo()+"','DD/MM/YYYY'), "
+  				+ "horaInicioExJo = TO_TIMESTAMP('"+jorNovo.getHoraInicioExJo()+"','HH24:MI:SS'), "
+  				+ "horaFimExJo = TO_TIMESTAMP('"+jorNovo.getHoraFimExJo()+"','HH24:MI:SS'), "
+  				+ "ibopeExJo = "+jorNovo.getIbopeExJo()+""
+  				+ "WHERE IDPR = "+jor.getIdPr()+" AND IDFU = "+jor.getIdFu()+" "
+  				+ "AND DATAEXJO = TO_DATE('"+jor.getDataExJo()+"','DD/MM/YYYY')"
+				+ "AND HORAINICIOEXJO = TO_TIMESTAMP('"+jor.getHoraInicioExJo()+"','HH24:MI:SS');";
 
   		try{
-  			st = conn.prepareStatement(insertQuery);
-  			st.setInt(1, jorNovo.getIdPr());
-  			st.setInt(2, jorNovo.getIdFu());
-  			st.setString(3, jorNovo.getDataExJo());
-  			st.setTimestamp(4, Timestamp.valueOf(jorNovo.getHoraInicioExJo().toString()));
-  			st.setTimestamp(5, Timestamp.valueOf(jorNovo.getHoraFimExJo().toString()));
-  			st.setInt(6, jorNovo.getIbopeExJo());
-  			st.setInt(7, jor.getIdPr());
-  			st.setInt(8, jor.getIdFu());
-  			st.setString(9, jor.getDataExJo());
-  			st.setTimestamp(10, Timestamp.valueOf(jor.getHoraInicioExJo().toString()));
-  			st.setTimestamp(11, Timestamp.valueOf(jor.getHoraFimExJo().toString()));
+  			st = conn.createStatement();
   			st.executeUpdate(insertQuery);
   			return true;
   		}catch (SQLException sqlex) {

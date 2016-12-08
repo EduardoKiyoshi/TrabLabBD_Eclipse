@@ -21,8 +21,7 @@ import javafx.scene.control.TableView;
 
 import model.Comercial;
 import model.ComercialDAO;
-import model.Jornal;
-import model.JornalDAO;
+
 
 
 public class TodosComerciaisController {

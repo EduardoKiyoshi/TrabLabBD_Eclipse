@@ -34,11 +34,11 @@ public class ExibicoesJornaisController {
     @FXML
     private TableColumn<ExibicaoJornal, Integer> funcionarioColumn;
     @FXML
-    private TableColumn<ExibicaoJornal, LocalDate> dataColumn;
+    private TableColumn<ExibicaoJornal, String> dataColumn;
     @FXML
-    private TableColumn<ExibicaoJornal, LocalTime> horaInicioColumn;
+    private TableColumn<ExibicaoJornal, String> horaInicioColumn;
     @FXML
-    private TableColumn<ExibicaoJornal, LocalTime> horaFimColumn;
+    private TableColumn<ExibicaoJornal, String> horaFimColumn;
     @FXML
     private TableColumn<ExibicaoJornal, Integer> ibopeColumn;
    
