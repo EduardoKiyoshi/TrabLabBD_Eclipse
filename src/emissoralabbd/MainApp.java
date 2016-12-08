@@ -17,6 +17,7 @@ import view.FuncionarioOverviewController;
 import view.InsertFuncionarioController;
 import view.InsertTrabalhoController;
 import view.SelectDependenteController;
+import view.SelectGerenciaController;
 import view.SelectTrabalhoController;
 import view.UpdateDependenteController;
 import view.UpdateFuncionarioController;
@@ -59,10 +60,9 @@ public class MainApp extends Application {
     	func.setDataNascimentoFu(DateUtil.parse(data));
     	func.setIdTipoFu(1);
     	func.setNomeCompletoFu("Ana Barbosa");
-    	func.setSalarioFu("1200");
     	
     	showFuncionarioOverview();
-    	//showTodosFuncionariosOverview();
+    	
     	//showAtorDependenteOverview();
     }
 
@@ -397,6 +397,25 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+    
+    public void showSelectGerencia() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/SelectGerencia.fxml"));
+            AnchorPane asd = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(asd);
+
+            // Give the controller access to the main app.
+            SelectGerenciaController controller = loader.getController();   
+            controller.setMainApp(this);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     /**

@@ -145,13 +145,7 @@ public class SelectTrabalhoController {
 	        		try{
         				dao = new TrabalhoDAO(conn);
     	        		dao.deleteTrabalho(selectedTrabalho.getIdFu());
-    	        		trabalhoTable.getItems().remove(selectedIndex);
-        			
-		        		/*if(Bindings.isEmpty(trabalhoTable.getItems()).get() == true){
-		        			System.out.println("Tabela vazia");
-		        			daoFu = new FuncionarioDAO(conn);
-		        			daoFu.deleteFuncionario(funcionario.getIdFu());
-		        		}*/
+    	        		trabalhoTable.getItems().remove(selectedIndex);    	        		
 	        		}catch (SQLException sqlex) {
 	                	errorMessage += sqlex.getErrorCode();
 	        			System.out.println("SQL Error" + sqlex);		    

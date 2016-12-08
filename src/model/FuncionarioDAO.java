@@ -19,7 +19,9 @@ public class FuncionarioDAO {
 	
 	public ObservableList findAll() throws SQLException {
 		   ObservableList FuncionarioList = FXCollections.observableArrayList();
-		   String selectQuery = "SELECT IDFU, NOMECOMPLETOFU, dataNascimentoFU, cpfFu, salarioFu, FUNCIONARIO.idTipoFu, TIPOFUNCIONARIO.descricaoTipoFu FROM FUNCIONARIO "
+		   String selectQuery = "SELECT IDFU, NOMECOMPLETOFU, dataNascimentoFU, cpfFu, "
+		   		+ "TO_CHAR(salarioFu,'L99G999D99MI', 'NLS_NUMERIC_CHARACTERS = '',.'' NLS_CURRENCY = ''R$''') as salarioFu, "
+		   		+ "FUNCIONARIO.idTipoFu, TIPOFUNCIONARIO.descricaoTipoFu FROM FUNCIONARIO "
 		   		+ "JOIN TIPOFUNCIONARIO ON TIPOFUNCIONARIO.idTipoFu = FUNCIONARIO.idTipoFu";
 
 		   try{ 
@@ -36,7 +38,9 @@ public class FuncionarioDAO {
 	}
 	public Funcionario find(int indFu) throws SQLException {
 			Funcionario func = new Funcionario();
-		   String selectQuery = "SELECT IDFU, NOMECOMPLETOFU, dataNascimentoFU, cpfFu, salarioFu, FUNCIONARIO.idTipoFu, TIPOFUNCIONARIO.descricaoTipoFu FROM FUNCIONARIO "
+		   String selectQuery = "SELECT IDFU, NOMECOMPLETOFU, dataNascimentoFU, cpfFu, "
+		   		+ "TO_CHAR(salarioFu,'L99G999D99MI', 'NLS_NUMERIC_CHARACTERS = '',.'' NLS_CURRENCY = ''R$''') as salarioFu, "
+		   		+ "FUNCIONARIO.idTipoFu, TIPOFUNCIONARIO.descricaoTipoFu FROM FUNCIONARIO "
 		   		+ "JOIN TIPOFUNCIONARIO ON TIPOFUNCIONARIO.idTipoFu = FUNCIONARIO.idTipoFu WHERE IDFU = " + indFu;
 
 		   try{ 

@@ -12,10 +12,10 @@
    <children>
       <TableView fx:id="funcionarioTable" layoutX="14.0" layoutY="14.0" prefHeight="240.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="idFuColumn" prefWidth="75.0" text="Código" />
-          <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Nome " />
-            <TableColumn fx:id="dataNascColumn" prefWidth="132.0" text="Data de Nascimento" />
-            <TableColumn fx:id="cpfFuColumn" prefWidth="152.0" text="CPF" />
+          <TableColumn fx:id="idFuColumn" prefWidth="58.0" text="Código" />
+          <TableColumn fx:id="nomeColumn" prefWidth="117.0" text="Nome " />
+            <TableColumn fx:id="dataNascColumn" prefWidth="129.0" text="Data de Nascimento" />
+            <TableColumn fx:id="cpfFuColumn" prefWidth="130.0" text="CPF" />
             <TableColumn fx:id="salarioFuColumn" prefWidth="71.0" text="Salário" />
             <TableColumn fx:id="descricaoTipoFuColumn" prefWidth="91.0" text="Cargo" />
         </columns>
@@ -29,12 +29,13 @@
             <Button mnemonicParsing="false" onAction="#handleDeleteFuncionario" text="Apagar Funcionario" />
         </buttons>
       </ButtonBar>
-      <ButtonBar layoutX="133.0" layoutY="288.0" prefHeight="40.0" prefWidth="348.0" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="288.0">
+      <ButtonBar layoutX="-31.0" layoutY="283.0" prefHeight="40.0" prefWidth="577.0" AnchorPane.leftAnchor="-31.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="283.0">
          <buttons>
-            <ButtonBar prefHeight="40.0" prefWidth="350.0">
+            <ButtonBar prefHeight="40.0" prefWidth="503.0">
               <buttons>
                 <Button mnemonicParsing="false" onAction="#handleConsultarTrabalho" text="Consultar Trabalho" />
                   <Button mnemonicParsing="false" onAction="#handleSelectDependente" prefHeight="25.0" prefWidth="163.0" text="Consultar Dependentes" />
+                  <Button maxWidth="139.0" mnemonicParsing="false" onAction="#handleSelectGerencia" prefHeight="25.0" prefWidth="164.0" text="Consultar Gerencias" />
               </buttons>
             </ButtonBar>
          </buttons>

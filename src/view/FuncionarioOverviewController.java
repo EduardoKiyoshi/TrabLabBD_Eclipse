@@ -253,4 +253,8 @@ public class FuncionarioOverviewController {
     	int codigoProfissao = tipoDescricao.get(idTipoBox.getValue().toString());
     	mainApp.showAtorDependenteOverview(codigoProfissao);
     }   
+    @FXML
+    private void handleSelectGerencia() {
+    	mainApp.showSelectGerencia();
+    }  
 }

@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import model.DepartamentoDAO;
 import model.Funcionario;
 import model.FuncionarioDAO;
+import model.GerenciaDAO;
 import model.TipoFuncionario;
 import model.TipoFuncionarioDAO;
 import model.TrabalhoDAO;
@@ -44,16 +45,13 @@ public class InsertFuncionarioController {
 		private Button confirmarButton;
 	@FXML
 		private Button cancelarButton;
-	/*@FXML
-    private void handleCancel() {
-        dialogStage.close();
-    }*/
-	
+		
 	private ObservableList<String> tipoFuncList;
 	private Map<String, Integer> tipoDescricao;
 	private Stage dialogStage;
 	Funcionario func;
 	private MainApp mainApp; 
+	
 	@FXML
     private void initialize() {
 		Connection conn = DBconnection.getConexao();
@@ -69,7 +67,6 @@ public class InsertFuncionarioController {
 			}
 			idTipoBox.setItems(tipoFuncList);
 	    }catch (SQLException sqlex) {
-	    	//errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
 		}finally {
 		    try { conn.close(); } catch (Exception e) { /* ignored */ }
@@ -88,6 +85,7 @@ public class InsertFuncionarioController {
         	DBconnection connection = new DBconnection();
         	Connection conn = DBconnection.getConexao();
         	FuncionarioDAO dao = new  FuncionarioDAO(conn);
+        	
         	
         	func = new Funcionario();        	
         	func.setNomeCompletoFu(nameField.getText());

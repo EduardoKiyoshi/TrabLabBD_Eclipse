@@ -115,14 +115,29 @@ public class GerenciaDAO {
         }
         return departamentoList;
     }
-    
+    public ObservableList findAll() throws SQLException {
+		   ObservableList FuncionarioList = FXCollections.observableArrayList();
+		   String selectQuery = "SELECT idFu, idDe, dataInicioGe, dataFimGe FROM GERENCIA";
+
+		   try{ 
+		        PreparedStatement pStatement = conn.prepareStatement(selectQuery);
+		        ResultSet resultSet = pStatement.executeQuery();
+		      while (resultSet.next()) {
+		    	  FuncionarioList.add(createGerencia(resultSet));
+		      }
+		   } catch (SQLException sqlex) {
+		      System.out.println("SQL Error" + sqlex);
+		      throw sqlex;
+		   }
+		   return FuncionarioList;
+	}
     private Gerencia createGerencia(ResultSet resultSet) throws SQLException {
     	Gerencia con = null;
         FuncionarioDAO funcionarioDAO = null;
         DepartamentoDAO departamentoDAO = null;
         try{			
                 con = new Gerencia();
-                con.setIdFu(resultSet.getInt("idPr"));
+                con.setIdFu(resultSet.getInt("idFu"));
                 con.setIdDe(resultSet.getInt("idDe"));	
                 con.setDataInicioGe(resultSet.getDate("dataInicioGe").toLocalDate());	
                 

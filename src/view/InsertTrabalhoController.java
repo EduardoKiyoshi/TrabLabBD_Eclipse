@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import model.Departamento;
 import model.DepartamentoDAO;
 import model.Funcionario;
+import model.Gerencia;
+import model.GerenciaDAO;
 import model.Trabalho;
 import model.TrabalhoDAO;
 import util.DBconnection;
@@ -76,55 +78,65 @@ public class InsertTrabalhoController {
     private void handleOk() {
     	String errorMessage = "";
     	Alert alert = null;
-        //if (isInputValid()) {
-        	//DBconnection connection = new DBconnection();
-        	//Connection conn = DBconnection.getConexao();
-        	TrabalhoDAO dao = new  TrabalhoDAO(con);
-        	Trabalho trab = new Trabalho();
-        	
-        	trab.setIdFu(funcionario.getIdFu());
-        	trab.setDataInicioTr(DateUtil.parse(dataInicioTr.getText())); 
-        	trab.setDataFimTr(DateUtil.parse(dataFimTr.getText()));
-        	System.out.println(trab.getDataFimTr());
-        	trab.setIdDe(departamentoIdMap.get(
-        			departamentoChoiceBox.getValue().toString()        			
-        			)
-        	);
-        	try{        		
-        		dao.insertTrabalho(trab);  
-        		con.commit();
-        		con.setAutoCommit(true);
-            }catch (SQLException sqlex) {
-            	errorMessage += sqlex.getErrorCode();
-    			System.out.println("SQL Error" + sqlex);		    
-    		}finally {
-    		    try { con.close(); } catch (Exception e) { /* ignored */ }
+    	
+    	TrabalhoDAO dao = new  TrabalhoDAO(con);
+    	Trabalho trab = new Trabalho();
+    	
+    	GerenciaDAO daoGe = new  GerenciaDAO(con);
+    	Gerencia gerencia = new Gerencia();
+    	
+    	trab.setIdFu(funcionario.getIdFu());
+    	trab.setDataInicioTr(DateUtil.parse(dataInicioTr.getText())); 
+    	trab.setDataFimTr(DateUtil.parse(dataFimTr.getText()));
+    	System.out.println(trab.getDataFimTr());
+    	trab.setIdDe(departamentoIdMap.get(
+    			departamentoChoiceBox.getValue().toString()        			
+    			)
+    	);
+    	try{        		
+    		dao.insertTrabalho(trab);  
+    		
+    		if(funcionario.getIdTipoFu() == 1){
+    			gerencia.setIdDe(trab.getIdDe());
+    			gerencia.setIdFu(trab.getIdFu());
+    			gerencia.setDataInicioGe(DateUtil.parse(trab.getDataInicioTr()));
+    			gerencia.setDataFimGe(DateUtil.parse(trab.getDataFimTr()));
+    			daoGe.insertGerencia(gerencia);
     		}
-        	
-        	
-            if (errorMessage.length() == 0) {
-                alert = new Alert(AlertType.CONFIRMATION); 
-                alert.initOwner(dialogStage);
-                alert.setTitle("Insercao Confirmada");
-                alert.setHeaderText("Sucesso na insercao");
-                alert.showAndWait();
+    			
+    		con.commit();
+    		con.setAutoCommit(true);
+        }catch (SQLException sqlex) {
+        	errorMessage += sqlex.getErrorCode();
+			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { con.close(); } catch (Exception e) { /* ignored */ }
+		}
+    	
+    	
+        if (errorMessage.length() == 0) {
+            alert = new Alert(AlertType.CONFIRMATION); 
+            alert.initOwner(dialogStage);
+            alert.setTitle("Insercao Confirmada");
+            alert.setHeaderText("Sucesso na insercao");
+            alert.showAndWait();
 
-                dialogStage.close();
-            } else {
-                // Show the error message.
-                alert = new Alert(AlertType.ERROR);
-                alert.initOwner(dialogStage);
-                alert.setTitle("Invalid Fields");
-                alert.setHeaderText("Please correct invalid fields");
-                alert.setContentText(ErrorHandler.getMessage(Integer.parseInt(errorMessage)));
-                
-                alert.showAndWait();
+            dialogStage.close();
+        } else {
+            // Show the error message.
+            alert = new Alert(AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Invalid Fields");
+            alert.setHeaderText("Please correct invalid fields");
+            alert.setContentText(ErrorHandler.getMessage(Integer.parseInt(errorMessage)));
+            
+            alert.showAndWait();
 
-                //return false;
-            }
-        	
-            //okClicked = true;
+            //return false;
         }
+    	
+        //okClicked = true;
+    }
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
