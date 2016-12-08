@@ -8,11 +8,11 @@ import java.util.Locale;
 
 public class TimeUtil {
 	private static DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("HH:mm:ss", Locale.US);
-	public static String format(LocalTime date) {
-        if (date == null) {
+            DateTimeFormatter.ofPattern("HH:mm", Locale.US);
+	public static String format(LocalTime time) {
+        if (time == null) {
             return null;
         }
-        return formatter.format(date);
+        return formatter.format(time);
     }
 }
