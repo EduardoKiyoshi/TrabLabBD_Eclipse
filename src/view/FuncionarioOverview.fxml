@@ -22,14 +22,14 @@
       </TableView>
       <ButtonBar layoutX="386.0" layoutY="253.0" prefHeight="40.0" prefWidth="200.0" />
       <Label layoutX="45.0" layoutY="337.0" prefHeight="17.0" prefWidth="258.0" text="Lista de Funcionários e seus dependentes" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="337.0" />
-      <ButtonBar layoutX="88.0" layoutY="253.0" prefHeight="40.0" prefWidth="425.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="253.0">
+      <ButtonBar layoutX="88.0" layoutY="253.0" prefHeight="40.0" prefWidth="425.0" AnchorPane.leftAnchor="88.0" AnchorPane.topAnchor="253.0">
         <buttons>
             <Button mnemonicParsing="false" onAction="#handleInsertFuncionario" prefHeight="25.0" prefWidth="129.0" text="Inserir Funcionário" />
             <Button mnemonicParsing="false" onAction="#handleUpdateFuncionario" text="Atualizar Dados" />
             <Button mnemonicParsing="false" onAction="#handleDeleteFuncionario" text="Apagar Funcionario" />
         </buttons>
       </ButtonBar>
-      <ButtonBar layoutX="-31.0" layoutY="283.0" prefHeight="40.0" prefWidth="577.0" AnchorPane.leftAnchor="-31.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="283.0">
+      <ButtonBar layoutX="-31.0" layoutY="283.0" prefHeight="40.0" prefWidth="577.0" AnchorPane.leftAnchor="-31.0" AnchorPane.topAnchor="283.0">
          <buttons>
             <ButtonBar prefHeight="40.0" prefWidth="503.0">
               <buttons>

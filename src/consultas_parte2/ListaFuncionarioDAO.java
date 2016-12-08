@@ -34,16 +34,12 @@ public class ListaFuncionarioDAO {
     public ObservableList<Row> findAll() throws SQLException {
         ObservableList<Row> list = FXCollections.observableArrayList();
         Row row = null;
-        String selectQuery = "SELECT FUNC.nomeCompletoFu AS \"Nome do funcionário\",\n" +
-            "TO_CHAR(FUNC.salarioFu,'L99G999D99MI', 'NLS_NUMERIC_CHARACTERS = '',.'' NLS_CURRENCY = ''R$''')  AS \"Salário do funcionário\",\n" +
-            "tipoFUNC.DESCRICAOTIPOFU  AS \"Cargo\",\n" +
-            "NVL(DEP.NOMECOMPLETODE, 'não possui')  AS \"Nome do dependente\",\n" +
-            "NVL(TO_CHAR(EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM DEP.DATANASCIMENTODE)), '-') AS \"Idade do Dependente\"\n" +
-            "FROM FUNCIONARIO FUNC LEFT JOIN DEPENDENTE DEP\n" +
-            "ON FUNC.idFu = DEP.idFu\n" +
-            "JOIN tipoFuncionario tipoFUNC\n" +
-            "ON FUNC.idTipoFu = tipoFUNC.idTipoFu\n" +
-            "ORDER BY FUNC.nomeCompletoFu";
+        String selectQuery = "SELECT \"Nome do funcionario\",\n" +
+            "\"Salario do funcionario\",\n" +
+            "\"Cargo\",\n" +
+            "\"Nome do dependente\",\n" +
+            "\"Idade do Dependente\"\n" +
+            "FROM TODOSFUNCIONARIOS_VIEW";
         
         try{ 
              PreparedStatement pStatement = conn.prepareStatement(selectQuery);
@@ -60,19 +56,19 @@ public class ListaFuncionarioDAO {
     }
     public static void main(String[] args){
         //System.out.println(TrabalhoTodosDepartamentos.class.getResource("/"));
-    	/*try{
+    	try{
 	    	Connection con = DBconnection.getConexao();
-	    	TrabalhoTodosDepartamentos dao = new TrabalhoTodosDepartamentos(con);
-	    	List<String> lista = dao.findAll();
+	    	ListaFuncionarioDAO dao = new ListaFuncionarioDAO(con);
+	    	List<Row> lista = dao.findAll();
 	    	//LocalDate data = DateUtil.parse("12/12/2013");
-                for(String el : lista ){
-                    System.out.println(el);
+                for(Row el : lista ){
+                    System.out.println(el.nomeFuncProperty());
                 }
 	    	
     	}catch (SQLException e) {
 			// TODO: handle exception
     		System.out.println(e);
-		}*/
+		}
     }
     
 }
