@@ -5,6 +5,10 @@ import java.sql.Connection;
 
 import com.sun.prism.paint.Color;
 
+import consultasProgramas.ExibicoesComerciaisController;
+import consultasProgramas.ExibicoesJornaisController;
+import consultasProgramas.TodosComerciaisController;
+import consultasProgramas.TodosJornaisController;
 import consultas_parte2.AtorDependenteOverviewController;
 import consultas_parte2.TodosFuncionariosController;
 import consultas_parte2.TrabalhoTodosDepartamentosOverviewController;
@@ -62,6 +66,7 @@ public class MainApp extends Application {
     	func.setNomeCompletoFu("Ana Barbosa");
     	
     	showFuncionarioOverview();
+    	//showTodosJornaisOverview();
     }
 
     /**
@@ -79,6 +84,64 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showTodosJornaisOverview() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/consultasProgramas/TodosJornais.fxml"));
+            AnchorPane asd = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(asd);
+
+            // Give the controller access to the main app.
+            TodosJornaisController controller = loader.getController();
+            //controller.setCodigoProfissao(codigoProfissao);
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void showExibicoesJornaisOverview() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/consultasProgramas/exibicoesJornais.fxml"));
+            AnchorPane asd = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(asd);
+
+            // Give the controller access to the main app.
+            ExibicoesJornaisController controller = loader.getController();
+            //controller.setCodigoProfissao(codigoProfissao);
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void showTodosComerciaisOverview() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/consultasProgramas/TodosComerciais.fxml"));
+            AnchorPane asd = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(asd);
+
+            // Give the controller access to the main app.
+            TodosComerciaisController controller = loader.getController();
+            //controller.setCodigoProfissao(codigoProfissao);
+            controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

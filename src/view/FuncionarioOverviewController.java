@@ -120,6 +120,18 @@ public class FuncionarioOverviewController {
         
     }
     @FXML
+    private void handleTodosJornais() {
+    	mainApp.showTodosJornaisOverview();
+    }
+    @FXML
+    private void handleExibicoesJornais() {
+    	mainApp.showExibicoesJornaisOverview();
+    }
+    @FXML
+    private void handleTodosComerciais() {
+    	mainApp.showTodosComerciaisOverview();
+    }
+    @FXML
     private void handleSelectDependente() {
         Funcionario selectedFuncionario = funcionarioTable.getSelectionModel().getSelectedItem();
         if (selectedFuncionario != null) {

@@ -45,5 +45,6 @@
       <ChoiceBox fx:id="idTipoBox" layoutX="205.0" layoutY="377.0" prefWidth="150.0" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="377.0" />
       <Label layoutX="19.0" layoutY="381.0" text="Buscar funcionarios da profissao :" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="381.0" />
       <Button layoutX="611.0" layoutY="377.0" mnemonicParsing="false" onAction="#handleAtorDependente" text="Buscar" AnchorPane.leftAnchor="611.0" AnchorPane.topAnchor="377.0" />
+      <Button layoutX="19.0" layoutY="410.0" mnemonicParsing="false" onAction="#handleTodosJornais" text="Todos Jornais" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="410.0" />
    </children>
 </AnchorPane>

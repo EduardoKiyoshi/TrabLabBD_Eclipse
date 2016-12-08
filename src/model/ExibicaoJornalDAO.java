@@ -32,7 +32,23 @@ public class ExibicaoJornalDAO {
         }
         return exibicaoList;
     }
-    
+    public ObservableList findAll() throws SQLException {
+        ObservableList exibicaoList = FXCollections.observableArrayList();
+        String selectQuery = "SELECT * FROM exibicaoJORNAL";
+
+        try{ 
+             PreparedStatement pStatement = conn.prepareStatement(selectQuery);
+             ResultSet resultSet = pStatement.executeQuery();
+           while (resultSet.next()) {
+        	   //System.out.println(createExibicaoJornal(resultSet).getDataExJo());
+               exibicaoList.add(createExibicaoJornal(resultSet));
+           }
+        } catch (SQLException sqlex) {
+           System.out.println("SQL Error" + sqlex);
+           throw sqlex;
+        }
+        return exibicaoList;
+    }
     private ExibicaoJornal createExibicaoJornal(ResultSet resultSet) throws SQLException {
         ExibicaoJornal con = null;
         try{			
