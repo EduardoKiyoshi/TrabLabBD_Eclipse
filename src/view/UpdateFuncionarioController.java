@@ -65,6 +65,8 @@ public class UpdateFuncionarioController {
 		}finally {
 		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
+		
+		idTipoBox.getSelectionModel().selectFirst();
     }
 
     /**

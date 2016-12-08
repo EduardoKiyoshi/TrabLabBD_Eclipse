@@ -62,8 +62,6 @@ public class MainApp extends Application {
     	func.setNomeCompletoFu("Ana Barbosa");
     	
     	showFuncionarioOverview();
-    	//showSelectTrabalho(func);
-    	//showAtorDependenteOverview();
     }
 
     /**

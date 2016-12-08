@@ -24,8 +24,8 @@
           <Button mnemonicParsing="false" onAction="#handleDeleteGerencia" text="Finalizar Gerencia" />
         </buttons>
       </ButtonBar>
-      <ChoiceBox fx:id="departamentoChoiceBox" layoutX="110.0" layoutY="337.0" prefWidth="150.0" />
-      <Text layoutX="20.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Departamento" />
-      <Button layoutX="285.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleBuscarGerenciaDepto" text="Buscar" />
+      <ChoiceBox fx:id="departamentoChoiceBox" layoutX="209.0" layoutY="337.0" prefWidth="150.0" />
+      <Text layoutX="20.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar Gerentes do Departamento" />
+      <Button layoutX="371.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleBuscarGerenciaDepto" text="Buscar" />
    </children>
 </AnchorPane>

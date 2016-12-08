@@ -68,6 +68,8 @@ public class InsertTrabalhoController {
 		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
     	
+		departamentoChoiceBox.getSelectionModel().selectFirst();
+
 		
     }
     public void setMainApp(MainApp mainApp) {

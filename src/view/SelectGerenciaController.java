@@ -92,6 +92,9 @@ public class SelectGerenciaController {
 		}finally {
 		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
+		
+		departamentoChoiceBox.getSelectionModel().selectFirst();
+
     }
     @FXML
     private void handleDeleteGerencia() {

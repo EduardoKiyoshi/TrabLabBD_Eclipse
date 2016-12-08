@@ -72,7 +72,7 @@ public class InsertFuncionarioController {
 		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
 		
-		
+		idTipoBox.getSelectionModel().selectFirst();
     }
 	public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
