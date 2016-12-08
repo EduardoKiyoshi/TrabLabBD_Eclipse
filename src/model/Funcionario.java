@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 public class Funcionario {
 	private IntegerProperty idFu;
 	private StringProperty nomeCompletoFu;
-	private ObjectProperty<LocalDate> dataNascimentoFu;
+	private StringProperty dataNascimentoFu;
 	private StringProperty cpfFu;
 	private StringProperty salarioFu;
 	private IntegerProperty idTipoFu;
@@ -30,7 +30,7 @@ public class Funcionario {
 		super();
 		this.idFu = new SimpleIntegerProperty(idFu);
 		this.nomeCompletoFu = new SimpleStringProperty(nomeCompletoFu);
-		this.dataNascimentoFu = new SimpleObjectProperty<LocalDate>(DateUtil.parse(dataNascimentoFu));
+		this.dataNascimentoFu = new SimpleStringProperty(dataNascimentoFu);
 		this.cpfFu = new SimpleStringProperty(cpfFu);
 		this.salarioFu = new SimpleStringProperty(salarioFu);
 		this.idTipoFu = new SimpleIntegerProperty(idTipoFu);
@@ -68,13 +68,13 @@ public class Funcionario {
 	
 	//TODO : Verificar se data de nascimento est� correta
 	public String getDataNascimentoFu() {
-		return DateUtil.format(dataNascimentoFu.get());
+		return dataNascimentoFu.get();
 	}
-	public ObjectProperty<LocalDate> dataNascimentoFuProperty() {
+	public StringProperty dataNascimentoFuProperty() {
 		return dataNascimentoFu;
 	}
 	public void setDataNascimentoFu(LocalDate dataNascimentoFu) {
-		this.dataNascimentoFu.set(dataNascimentoFu);
+		this.dataNascimentoFu.set(DateUtil.format(dataNascimentoFu));
 	}
 	
 	public String getCpfFu() {

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import util.DateUtil;
+import util.TimeUtil;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -22,17 +23,17 @@ import javafx.beans.property.StringProperty;
  */
 public class ExibicaoComercial {
     private IntegerProperty idPr;
-    private ObjectProperty<LocalDate> dataExCo;
-    private ObjectProperty<LocalTime>  horaInicioExCo;
-    private ObjectProperty<LocalTime>  horaFimExCo;
+    private StringProperty dataExCo;
+    private StringProperty  horaInicioExCo;
+    private StringProperty  horaFimExCo;
     private IntegerProperty precoExCo;
     private StringProperty cnpjCl;
     
     public ExibicaoComercial(){
     	this.idPr = new SimpleIntegerProperty();
-    	this.dataExCo = new SimpleObjectProperty<LocalDate>();
-    	this.horaInicioExCo = new SimpleObjectProperty<LocalTime>();
-    	this.horaFimExCo = new SimpleObjectProperty<LocalTime>();
+    	this.dataExCo = new SimpleStringProperty();
+    	this.horaInicioExCo = new SimpleStringProperty();
+    	this.horaFimExCo = new SimpleStringProperty();
     	this.precoExCo = new SimpleIntegerProperty();
     	this.cnpjCl = new SimpleStringProperty();
         
@@ -50,33 +51,33 @@ public class ExibicaoComercial {
     }
     
     public String getDataExCo() {
-            return DateUtil.format(dataExCo.get());
+            return dataExCo.get();
     }
-    public ObjectProperty<LocalDate> dataExCoProperty() {
+    public StringProperty dataExCoProperty() {
             return dataExCo;
     }
     public void setDataExCo(LocalDate dataExCo) {
-            this.dataExCo.set(dataExCo);
+    		this.dataExCo.set(DateUtil.format(dataExCo));
     }
     
     public String getHoraInicioExCo() {
             return horaInicioExCo.toString();
     }
-    public ObjectProperty<LocalTime> horaInicioExCoProperty() {
+    public StringProperty horaInicioExCoProperty() {
             return horaInicioExCo;
     }
     public void setHoraInicioExCo(LocalTime horaInicioExCo) {
-            this.horaInicioExCo.set(horaInicioExCo);
+            this.horaInicioExCo.set(TimeUtil.format(horaInicioExCo));
     }
     
     public String getHoraFimExCo() {
             return horaFimExCo.toString();
     }
-    public ObjectProperty<LocalTime> horaFimExCoProperty() {
+    public StringProperty horaFimExCoProperty() {
             return horaFimExCo;
     }
     public void setHoraFimExCo(LocalTime horaFimExCo) {
-            this.horaFimExCo.set(horaFimExCo);
+            this.horaFimExCo.set(TimeUtil.format(horaFimExCo));
     }
     
     public int getPrecoExCo() {

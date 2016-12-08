@@ -38,7 +38,7 @@ public class FuncionarioOverviewController {
     @FXML
     private TableColumn<Funcionario, String> nomeColumn;
     @FXML
-    private TableColumn<Funcionario, LocalDate> dataNascColumn;
+    private TableColumn<Funcionario, String> dataNascColumn;
     @FXML
     private TableColumn<Funcionario, String> cpfFuColumn;
     @FXML

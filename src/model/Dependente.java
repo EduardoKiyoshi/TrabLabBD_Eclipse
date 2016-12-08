@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
 public class Dependente {
 	private IntegerProperty idFu;
 	private StringProperty nomeCompletoDe;
-	private ObjectProperty<LocalDate> dataNascimentoDe;
+	private StringProperty dataNascimentoDe;
 	private StringProperty sexoDe;
 	
 	public Dependente(){		
@@ -25,7 +25,7 @@ public class Dependente {
 		this.idFu = new SimpleIntegerProperty(idFu);
 		this.nomeCompletoDe = new SimpleStringProperty(nomeCompletoDe);
 		//this.dataNascimentoDe = new SimpleObjectProperty<LocalDate>(DateUtil.parse(dataNascimentoDe));
-                this.dataNascimentoDe = new SimpleObjectProperty<LocalDate>();
+                this.dataNascimentoDe = new SimpleStringProperty();
 		this.sexoDe = new SimpleStringProperty(sexoDe);
 	}
 	
@@ -51,13 +51,13 @@ public class Dependente {
 	
 	//TODO : Verificar se data de nascimento est� correta
 	public String getDataNascimentoDe() {
-		return DateUtil.format(dataNascimentoDe.get());
+		return dataNascimentoDe.get();
 	}
-	public ObjectProperty<LocalDate> dataNascimentoDeProperty() {
+	public StringProperty dataNascimentoDeProperty() {
 		return dataNascimentoDe;
 	}
 	public void setDataNascimentoDe(LocalDate dataNascimentoDe) {
-		this.dataNascimentoDe.set(dataNascimentoDe);
+		this.dataNascimentoDe.set(DateUtil.format(dataNascimentoDe));
 	}
 	
 	public String getSexoDe() {

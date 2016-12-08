@@ -25,7 +25,7 @@ public class SelectDependenteController {
     @FXML
     private TableColumn<Dependente, String> nomeColumn;
     @FXML
-    private TableColumn<Dependente, LocalDate> dataNascColumn;
+    private TableColumn<Dependente, String> dataNascColumn;
     @FXML
     private TableColumn<Dependente, String> sexoColumn;
     

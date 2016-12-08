@@ -34,9 +34,9 @@ public class SelectGerenciaController {
     @FXML
     private TableColumn<Gerencia, Integer> idFuColumn;    
     @FXML
-    private TableColumn<Gerencia, LocalDate> dataInicioTrColumn;
+    private TableColumn<Gerencia, String> dataInicioTrColumn;
     @FXML
-    private TableColumn<Gerencia, LocalDate> dataTerminoTrColumn;
+    private TableColumn<Gerencia, String> dataTerminoTrColumn;
     @FXML
     private ChoiceBox<String> departamentoChoiceBox;
     

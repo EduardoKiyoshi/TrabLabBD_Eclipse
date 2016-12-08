@@ -3,14 +3,20 @@ package application;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import model.Comercial;
 import model.ComercialDAO;
+import model.Departamento;
 import model.Dependente;
 import model.DependenteDAO;
+import model.ExibicaoComercial;
+import model.ExibicaoComercialDAO;
 import model.Funcionario;
 import model.FuncionarioDAO;
 import model.Gerencia;
@@ -19,6 +25,7 @@ import model.Trabalho;
 import model.TrabalhoDAO;
 import util.DBconnection;
 import util.DateUtil;
+import util.TimeUtil;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
@@ -26,19 +33,26 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		String cpf = new String("111.222.333-12");
-		if(cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")){
-			System.out.println("CPF valido");
-		}else{
-			System.out.println("CPF invalido");
-		}
-		//try{
+		LocalTime time = LocalTime.now();
+		System.out.println(TimeUtil.format(time));
+		
+		try{
 	    	Connection con = DBconnection.getConexao();
 	    	TrabalhoDAO daoTr = new TrabalhoDAO(con);
 	    	FuncionarioDAO daoFu = new FuncionarioDAO(con);
 	    	DependenteDAO daoDep = new DependenteDAO(con);
 	    	GerenciaDAO daoGe = new GerenciaDAO(con);
 	    	Funcionario func = new Funcionario();
+	    	Comercial comercial = new Comercial();
+	    	comercial.setIdPr(40);
+	    	comercial.setIdDe(2);
+	    	
+	    	ObservableList<ExibicaoComercial> tipoData = FXCollections.observableArrayList();
+	    	ExibicaoComercialDAO daoCom = new ExibicaoComercialDAO(con);
+	    	tipoData = daoCom.findExibicaoComercial(comercial);
+	    	for(ExibicaoComercial e : tipoData){
+	    		System.out.println(e.getHoraInicioExCo());
+	    	}
 	    	
 	    	Dependente dep = new Dependente();
 	    	dep.setIdFu(3);
@@ -98,10 +112,10 @@ public class Main extends Application {
 	    	//lista = dao.findAll();
 	    	//LocalDate data = DateUtil.parse("12/12/2013");
 	    	//System.out.println(lista);
-/*    	}catch (SQLException e) {
+    	}catch (SQLException e) {
 			// TODO: handle exception
     		System.out.println(e);
-		}*/	
+		}
 	}
 
 	public static void main(String[] args) {

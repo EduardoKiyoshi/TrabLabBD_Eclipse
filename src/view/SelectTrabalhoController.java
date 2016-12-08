@@ -23,6 +23,7 @@ import model.FuncionarioDAO;
 import model.Trabalho;
 import model.TrabalhoDAO;
 import util.DBconnection;
+import util.DateUtil;
 import util.ErrorHandler;
 
 public class SelectTrabalhoController {
@@ -33,9 +34,9 @@ public class SelectTrabalhoController {
     @FXML
     private TableColumn<Trabalho, Integer> idFuColumn;    
     @FXML
-    private TableColumn<Trabalho, LocalDate> dataInicioTrColumn;
+    private TableColumn<Trabalho, String> dataInicioTrColumn;
     @FXML
-    private TableColumn<Trabalho, LocalDate> dataTerminoTrColumn;
+    private TableColumn<Trabalho, String> dataTerminoTrColumn;
     @FXML
     private ChoiceBox departamento;
     @FXML
@@ -59,6 +60,7 @@ public class SelectTrabalhoController {
                 cellData -> cellData.getValue().idDeProperty().asObject());
     	dataInicioTrColumn.setCellValueFactory(
                 cellData -> cellData.getValue().dataInicioTrProperty());
+
     	dataTerminoTrColumn.setCellValueFactory(
                 cellData -> cellData.getValue().dataFimTrProperty());
     }

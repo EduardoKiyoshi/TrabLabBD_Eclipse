@@ -25,16 +25,16 @@ public class Gerencia {
     private IntegerProperty idFu;
     private Departamento departamento;
     private Funcionario funcionario;
-    private ObjectProperty<LocalDate> dataInicioGe;
-    private ObjectProperty<LocalDate> dataFimGe;
+    private StringProperty dataInicioGe;
+    private StringProperty dataFimGe;
     
     public Gerencia(){
     	this.idDe = new SimpleIntegerProperty();
     	this.idFu = new SimpleIntegerProperty();
     	departamento = new Departamento();
     	funcionario = new Funcionario();
-    	this.dataInicioGe = new SimpleObjectProperty<LocalDate>();
-    	this.dataFimGe = new SimpleObjectProperty<LocalDate>();
+    	this.dataInicioGe = new SimpleStringProperty();
+    	this.dataFimGe = new SimpleStringProperty();
     }
     
     public Funcionario getFuncionario() {
@@ -73,22 +73,22 @@ public class Gerencia {
      }
      
      public String getDataInicioGe() {
-		return DateUtil.format(dataInicioGe.get());
+		return dataInicioGe.get();
 	}
-	public ObjectProperty<LocalDate> dataInicioGeProperty() {
+	public StringProperty dataInicioGeProperty() {
 		return dataInicioGe;
 	}
 	public void setDataInicioGe(LocalDate dataInicioGe) {
-		this.dataInicioGe.set(dataInicioGe);
+		this.dataInicioGe.set(DateUtil.format(dataInicioGe));
 	}
         
         public String getDataFimGe() {
-		return DateUtil.format(dataFimGe.get());
+		return dataFimGe.get();
 	}
-	public ObjectProperty<LocalDate> dataFimGeProperty() {
+	public StringProperty dataFimGeProperty() {
 		return dataFimGe;
 	}
 	public void setDataFimGe(LocalDate dataFimGe) {
-		this.dataFimGe.set(dataFimGe);
+		this.dataFimGe.set(DateUtil.format(dataFimGe));
 	}
 }

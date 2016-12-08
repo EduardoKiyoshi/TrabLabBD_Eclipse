@@ -19,16 +19,16 @@ public class Trabalho {
     private IntegerProperty idFu;
     private Departamento departamento;
     private Funcionario funcionario;
-    private ObjectProperty<LocalDate> dataInicioTr;
-    private ObjectProperty<LocalDate> dataFimTr;
+    private SimpleStringProperty dataInicioTr;
+    private SimpleStringProperty dataFimTr;
     
     public Trabalho(){
     	this.idDe = new SimpleIntegerProperty();
     	this.idFu = new SimpleIntegerProperty();
     	departamento = new Departamento();
     	funcionario = new Funcionario();
-    	this.dataInicioTr = new SimpleObjectProperty<LocalDate>();
-    	this.dataFimTr = new SimpleObjectProperty<LocalDate>();
+    	this.dataInicioTr = new SimpleStringProperty();
+    	this.dataFimTr = new SimpleStringProperty();
     }
     
     public Funcionario getFuncionario() {
@@ -67,22 +67,22 @@ public class Trabalho {
      }
      
      public String getDataInicioTr() {
-		return DateUtil.format(dataInicioTr.get());
+		return dataInicioTr.get();
 	}
-	public ObjectProperty<LocalDate> dataInicioTrProperty() {
+	public StringProperty dataInicioTrProperty() {
 		return dataInicioTr;
 	}
 	public void setDataInicioTr(LocalDate dataInicioTr) {
-		this.dataInicioTr.set(dataInicioTr);
+		this.dataInicioTr.set(DateUtil.format(dataInicioTr));
 	}
         
     public String getDataFimTr() {
-		return DateUtil.format(dataFimTr.get());
+		return dataFimTr.get();
 	}
-	public ObjectProperty<LocalDate> dataFimTrProperty() {
+	public StringProperty dataFimTrProperty() {
 		return dataFimTr;
 	}
 	public void setDataFimTr(LocalDate dataFimTr) {
-		this.dataFimTr.set(dataFimTr);
+		this.dataFimTr.set(DateUtil.format(dataFimTr));
 	}
 }
