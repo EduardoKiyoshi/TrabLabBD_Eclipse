@@ -39,6 +39,8 @@ public class InsertTrabalhoController {
     private Funcionario funcionario;
     private ObservableList<String> departamentoList;
 	private Map<String, Integer> departamentoIdMap;
+	
+	private Connection con;
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -46,7 +48,7 @@ public class InsertTrabalhoController {
     @FXML
     private void initialize() {
     	Connection conn = DBconnection.getConexao();
-		DepartamentoDAO daoTipo = new DepartamentoDAO(conn);		
+    	DepartamentoDAO daoTipo = new DepartamentoDAO(conn);		
 		ObservableList<Departamento> tipoData = FXCollections.observableArrayList();
 		departamentoList = FXCollections.observableArrayList();
 		departamentoIdMap = new HashMap<String,Integer>();
@@ -60,19 +62,24 @@ public class InsertTrabalhoController {
 	    }catch (SQLException sqlex) {
 	    	//errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
+    	
+		
     }
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+        
     }
     @FXML
     private void handleOk() {
     	String errorMessage = "";
     	Alert alert = null;
         //if (isInputValid()) {
-        	DBconnection connection = new DBconnection();
-        	Connection conn = DBconnection.getConexao();
-        	TrabalhoDAO dao = new  TrabalhoDAO(conn);
+        	//DBconnection connection = new DBconnection();
+        	//Connection conn = DBconnection.getConexao();
+        	TrabalhoDAO dao = new  TrabalhoDAO(con);
         	Trabalho trab = new Trabalho();
         	
         	trab.setIdFu(funcionario.getIdFu());
@@ -85,9 +92,13 @@ public class InsertTrabalhoController {
         	);
         	try{        		
         		dao.insertTrabalho(trab);  
+        		con.commit();
+        		con.setAutoCommit(true);
             }catch (SQLException sqlex) {
             	errorMessage += sqlex.getErrorCode();
     			System.out.println("SQL Error" + sqlex);		    
+    		}finally {
+    		    try { con.close(); } catch (Exception e) { /* ignored */ }
     		}
         	
         	
@@ -121,8 +132,20 @@ public class InsertTrabalhoController {
     public void setFuncionario(Funcionario func) {
         this.funcionario = func;
     }
+    public void setConnection(Connection conn) {
+        this.con = conn;
+    }
     @FXML
     private void handleCancel() {
+    	try{
+    		con.rollback();
+    		con.setAutoCommit(true);
+    	}catch(SQLException ex){
+    		System.out.println("Erro no Rollback:" + ex);
+    	}finally {
+		    try { con.close(); } catch (Exception e) { /* ignored */ }
+		}
+    	
         dialogStage.close();
     }
 }

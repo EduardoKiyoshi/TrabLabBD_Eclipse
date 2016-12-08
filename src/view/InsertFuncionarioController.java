@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -24,11 +25,13 @@ import model.Funcionario;
 import model.FuncionarioDAO;
 import model.TipoFuncionario;
 import model.TipoFuncionarioDAO;
+import model.TrabalhoDAO;
 import util.DBconnection;
 import util.DateUtil;
 import util.ErrorHandler;
 
 public class InsertFuncionarioController {
+	
 	@FXML
     	private TextField nameField;
 	@FXML
@@ -49,7 +52,8 @@ public class InsertFuncionarioController {
 	private ObservableList<String> tipoFuncList;
 	private Map<String, Integer> tipoDescricao;
 	private Stage dialogStage;
-	Funcionario func; 
+	Funcionario func;
+	private MainApp mainApp; 
 	@FXML
     private void initialize() {
 		Connection conn = DBconnection.getConexao();
@@ -67,7 +71,11 @@ public class InsertFuncionarioController {
 	    }catch (SQLException sqlex) {
 	    	//errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
+		
+		
     }
 	public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -84,22 +92,48 @@ public class InsertFuncionarioController {
         	func = new Funcionario();        	
         	func.setNomeCompletoFu(nameField.getText());
         	func.setDataNascimentoFu(DateUtil.parse(birthdayField.getText()));
-        	func.setCpfFu(cpfField.getText());
-        	
+        	if(cpfField.getText().matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")){
+        		func.setCpfFu(cpfField.getText());        		
+        	}else{
+        		alert = new Alert(AlertType.ERROR);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Invalid Fields");
+	            alert.setHeaderText("Please correct invalid fields");
+	            alert.setContentText("Formato de CPF invalido");  
+	            errorMessage += "Formato de CPF invalido";
+	            
+	            alert.showAndWait();
+        	}
         	func.setIdTipoFu(tipoDescricao.get(
         				idTipoBox.getValue().toString()        			
         			)
         	);
         		
-        	
-        	try{        		
-        		dao.insertFuncionario(func);  
-            }catch (SQLException sqlex) {
-            	errorMessage += sqlex.getErrorCode();
-    			System.out.println("SQL Error" + sqlex);		    
-    		}
-        	
-        	
+        	if(errorMessage.length() == 0){
+        		try{      
+        			errorMessage = "";
+        			
+        			conn.setAutoCommit(false);
+        			conn.setSavepoint();
+            		dao.insertFuncionario(func);
+            		
+            		int idFu = dao.findIdFu(func.getCpfFu());
+            		func.setIdFu(idFu);
+            		
+            		mainApp.showInsertTrabalho(func, conn);
+                }catch (SQLException sqlex) {
+                	errorMessage += sqlex.getErrorCode();
+        			System.out.println("SQL Error" + sqlex);
+        			// Show the error message.
+                    alert = new Alert(AlertType.ERROR);
+                    alert.initOwner(dialogStage);
+                    alert.setTitle("Invalid Fields");
+                    alert.setHeaderText("Please correct invalid fields");
+                    alert.setContentText(ErrorHandler.getMessage(Integer.parseInt(errorMessage)));
+                    
+                    alert.showAndWait();
+        		}
+        	}
             if (errorMessage.length() == 0) {
                 alert = new Alert(AlertType.CONFIRMATION); 
                 alert.initOwner(dialogStage);
@@ -108,16 +142,9 @@ public class InsertFuncionarioController {
                 alert.showAndWait();
                 
                 dialogStage.close();
-            } else {
-                // Show the error message.
-                alert = new Alert(AlertType.ERROR);
-                alert.initOwner(dialogStage);
-                alert.setTitle("Invalid Fields");
-                alert.setHeaderText("Please correct invalid fields");
-                alert.setContentText(ErrorHandler.getMessage(Integer.parseInt(errorMessage)));
                 
-                alert.showAndWait();
-
+               
+            } else {
                 //return false;
             }
         	
@@ -130,4 +157,8 @@ public class InsertFuncionarioController {
 	public Funcionario getFuncionario(){
 		return func;
 	}
+	public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+        
+    }
 }

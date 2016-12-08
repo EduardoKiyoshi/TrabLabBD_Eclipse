@@ -51,6 +51,23 @@ public class FuncionarioDAO {
 		   }
 		   return func;
 	}
+	public int findIdFu(String cpf) throws SQLException {
+		Funcionario func = new Funcionario();
+	   String selectQuery = "SELECT IDFU, NOMECOMPLETOFU, dataNascimentoFU, cpfFu, salarioFu, FUNCIONARIO.idTipoFu, TIPOFUNCIONARIO.descricaoTipoFu FROM FUNCIONARIO "
+	   		+ "JOIN TIPOFUNCIONARIO ON TIPOFUNCIONARIO.idTipoFu = FUNCIONARIO.idTipoFu WHERE cpfFu = '" + cpf + "'";
+
+	   try{ 
+	        PreparedStatement pStatement = conn.prepareStatement(selectQuery);
+	        ResultSet resultSet = pStatement.executeQuery();
+	      while (resultSet.next()) {
+	    	  func = createFuncionario(resultSet);
+	      }
+	   } catch (SQLException sqlex) {
+	      System.out.println("SQL Error" + sqlex);
+	      throw sqlex;
+	   }
+	   return func.getIdFu();
+}
 	public boolean insertFuncionario(Funcionario func) throws SQLException {
 		Statement st = null;
 		String insertQuery = "INSERT INTO FUNCIONARIO "
@@ -78,7 +95,7 @@ public class FuncionarioDAO {
 	public boolean updateFuncionario(int idFu, Funcionario newFunc) throws SQLException {
 		Statement st = null;
 		String insertQuery = "UPDATE FUNCIONARIO SET " +
-				" nomeCompletoFu = '"+ newFunc.getNomeCompletoFu() +"',";
+				" nomeCompletoFu = '"+ newFunc.getNomeCompletoFu() +"', dataNascimentoFu = ";
 				if(newFunc.getDataNascimentoFu() != null)
 					insertQuery = insertQuery + "TO_DATE('"	+ newFunc.getDataNascimentoFu() + "', 'DD/MM/YYYY'), ";						
 				else	

@@ -15,6 +15,6 @@
             <TableColumn fx:id="nomeDeColumn" prefWidth="172.0" text="Departamento" />
         </columns>
       </TableView>
-      <Button layoutX="41.0" layoutY="24.0" mnemonicParsing="false" text="&lt; voltar" />
+      <Button layoutX="41.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleBackButton" text="&lt; voltar" />
    </children>
 </AnchorPane>

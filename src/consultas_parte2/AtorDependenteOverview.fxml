@@ -9,9 +9,9 @@
    <children>
       <TableView fx:id="todosTable" layoutX="27.0" layoutY="74.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="nomeFuncColumn" prefWidth="199.0" text="Ator" />
+          <TableColumn fx:id="nomeFuncColumn" prefWidth="199.0" text="Funcionario" />
         </columns>
       </TableView>
-      <Button layoutX="27.0" layoutY="22.0" mnemonicParsing="false" text="&lt; voltar" />
+      <Button layoutX="27.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleCancel" text="&lt; voltar" />
    </children>
 </AnchorPane>

@@ -29,10 +29,7 @@ import util.ErrorHandler;
  * @author Marco Jakob
  */
 public class DependenteInsertDialogController {
-    /*@FXML
-    private Label idFu;
-    @FXML
-    private Label nomeCompletoFu;*/
+	
     @FXML
     private TextField nomeCompletoDe;
     @FXML
@@ -55,16 +52,7 @@ public class DependenteInsertDialogController {
      */
     @FXML
     private void initialize() {
-    	/*Connection conn = DBconnection.getConexao();
-    	DependenteDAO dao = new DependenteDAO(conn);
-    	ObservableList<Dependente> dependenteData = FXCollections.observableArrayList();
-    	try{
-    		dependenteData = dao.find(funcionario);     
-    		dependentes.setItems(dependenteData);
-        }catch (SQLException sqlex) {
-        	//errorMessage += sqlex.getErrorCode();
-			System.out.println("SQL Error" + sqlex);		    
-		}*/
+
     }
 
     /**
@@ -97,7 +85,6 @@ public class DependenteInsertDialogController {
     	String errorMessage = "";
     	Alert alert = null;
         if (isInputValid()) {
-        	DBconnection connection = new DBconnection();
         	Connection conn = DBconnection.getConexao();
         	DependenteDAO dao = new  DependenteDAO(conn);
         	Dependente dep = new Dependente();
@@ -116,6 +103,8 @@ public class DependenteInsertDialogController {
             }catch (SQLException sqlex) {
             	errorMessage += sqlex.getErrorCode();
     			System.out.println("SQL Error" + sqlex);		    
+    		}finally {
+    		    try { conn.close(); } catch (Exception e) { /* ignored */ }
     		}
         	
 
@@ -182,24 +171,7 @@ public class DependenteInsertDialogController {
      */
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
-        /*Connection conn = DBconnection.getConexao();
-        DependenteDAO dao = new DependenteDAO(conn);
-    	ObservableList<Dependente> dependenteData = FXCollections.observableArrayList();        
-    	ObservableList<String> dependenteDataNomes = FXCollections.observableArrayList();        
-    	
-        idFu.setText(""+ funcionario.getIdFu()  );
-        nomeCompletoFu.setText(funcionario.getNomeCompletoFu() );
         
-    	try{
-    		dependenteData = dao.find(funcionario);     
-    		for(Dependente e : dependenteData){
-    			dependenteDataNomes.add(e.getNomeCompletoDe());
-    		}
-    		dependentes.setItems(dependenteDataNomes);
-        }catch (SQLException sqlex) {
-        	//errorMessage += sqlex.getErrorCode();
-			System.out.println("SQL Error" + sqlex);		    
-		}*/
     }
     
     

@@ -62,6 +62,8 @@ public class UpdateFuncionarioController {
 	    }catch (SQLException sqlex) {
 	    	//errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
     }
 
@@ -82,10 +84,8 @@ public class UpdateFuncionarioController {
     	Connection conn = DBconnection.getConexao();
     	FuncionarioDAO dao = new  FuncionarioDAO(conn);
     	
-    	//Funcionario fun = new Funcionario();
     	funcionario.setNomeCompletoFu(nomeFu.getText());
     	funcionario.setDataNascimentoFu(DateUtil.parse(dataNascimentoFu.getText()));
-    	
 
     	funcionario.setIdTipoFu(tipoDescricao.get(
     				idTipoBox.getValue().toString()        			
@@ -98,6 +98,8 @@ public class UpdateFuncionarioController {
         }catch (SQLException sqlex) {
         	errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
     	
     	

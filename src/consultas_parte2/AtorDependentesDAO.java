@@ -20,12 +20,12 @@ public class AtorDependentesDAO {
             this.conn = conn;
     }
     
-    public ObservableList<Row> findAll() throws SQLException {
+    public ObservableList<Row> findAll(int codigoProfissao) throws SQLException {
         ObservableList<Row> list = FXCollections.observableArrayList();
         Row row = null;
         String selectQuery = "SELECT FUNC.nomeCompletoFu AS \"Nome do Ator\" "
         		+ "FROM FUNCIONARIO FUNC JOIN tipoFuncionario tipoFUNC ON tipoFUNC.idTipoFu = FUNC.idTipoFu "
-        		+ "WHERE tipoFUNC.DESCRICAOTIPOFU = 'ator' "
+        		+ "WHERE tipoFUNC.idTipoFu = "+ codigoProfissao //+""'ator' "
         		+ "INTERSECT "
         		+ "SELECT FUNC2.nomeCompletoFu "
         		+ "FROM FUNCIONARIO FUNC2 JOIN DEPENDENTE DEP ON FUNC2.idFu = DEP.idFu "
@@ -59,20 +59,6 @@ public class AtorDependentesDAO {
         	this.nomeFunc.set(nomeFunc); 
         }
 	}
-    public static void main(String[] args){
-    	try{
-	    	Connection con = DBconnection.getConexao();
-	    	AtorDependentesDAO dao = new AtorDependentesDAO(con);
-	    	List<Row> lista = dao.findAll();
-	    	//LocalDate data = DateUtil.parse("12/12/2013");
-                for(Row el : lista ){
-                    System.out.println(el.getNomeFunc());
-                }
-	    	
-    	}catch (SQLException e) {
-			// TODO: handle exception
-    		System.out.println(e);
-		}
-    }
+   
     
 }

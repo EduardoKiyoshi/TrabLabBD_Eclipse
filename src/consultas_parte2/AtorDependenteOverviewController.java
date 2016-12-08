@@ -13,7 +13,7 @@ import util.DBconnection;
 
 public class AtorDependenteOverviewController {
 private MainApp mainApp;
-    
+private int codigoProfissao;    
     @FXML
     private TableView<AtorDependentesDAO.Row> todosTable = new TableView<AtorDependentesDAO.Row>(); 
     @FXML
@@ -30,7 +30,7 @@ private MainApp mainApp;
         AtorDependentesDAO dao = new AtorDependentesDAO(conn);
         ObservableList<AtorDependentesDAO.Row> lista = FXCollections.observableArrayList();
         try{
-            lista = dao.findAll();
+            lista = dao.findAll(codigoProfissao);
             for(AtorDependentesDAO.Row e : lista){
                 System.out.println(e.getNomeFunc());
             }
@@ -40,5 +40,13 @@ private MainApp mainApp;
 			System.out.println("SQL Error" + sqlex);		    
 		}
        
+    }
+    public void setCodigoProfissao(int codigoProfissao){
+    	this.codigoProfissao = codigoProfissao;
+    }
+    
+    @FXML
+    private void handleCancel() {
+        mainApp.showFuncionarioOverview();
     }
 }

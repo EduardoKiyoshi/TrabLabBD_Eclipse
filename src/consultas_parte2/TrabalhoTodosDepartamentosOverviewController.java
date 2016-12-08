@@ -67,4 +67,8 @@ public class TrabalhoTodosDepartamentosOverviewController {
 		}
        
     }
+    @FXML
+    private void handleBackButton() {
+        mainApp.showFuncionarioOverview();
+    }
 }

@@ -1,6 +1,7 @@
 package emissoralabbd;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import com.sun.prism.paint.Color;
 
@@ -61,6 +62,7 @@ public class MainApp extends Application {
     	func.setSalarioFu("1200");
     	
     	showFuncionarioOverview();
+    	//showTodosFuncionariosOverview();
     	//showAtorDependenteOverview();
     }
 
@@ -84,7 +86,7 @@ public class MainApp extends Application {
         }
     }
     //Consultadas implementas na Parte 2
-    public void showAtorDependenteOverview() {
+    public void showAtorDependenteOverview(int codigoProfissao) {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -96,6 +98,7 @@ public class MainApp extends Application {
 
             // Give the controller access to the main app.
             AtorDependenteOverviewController controller = loader.getController();
+            controller.setCodigoProfissao(codigoProfissao);
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -174,6 +177,7 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
             
             InsertFuncionarioController controller = loader.getController();
+            controller.setMainApp(this);
             controller.setDialogStage(dialogStage);
             Funcionario novoFuncionario = controller.getFuncionario();
             
@@ -327,7 +331,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    public boolean showInsertTrabalho(Funcionario selectedFuncionario) {
+    public boolean showInsertTrabalho(Funcionario selectedFuncionario, Connection conn) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -347,6 +351,7 @@ public class MainApp extends Application {
             //controller.setMainApp(this);
             controller.setDialogStage(dialogStage);
             controller.setFuncionario(selectedFuncionario);
+            controller.setConnection(conn);
             dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
                     showSelectTrabalho(selectedFuncionario);
@@ -381,6 +386,11 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setTrabalho(trabalho);
             
+            dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    showFuncionarioOverview();
+                }
+            });  
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             return true;

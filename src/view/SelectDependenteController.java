@@ -39,9 +39,6 @@ public class SelectDependenteController {
      */
     @FXML
     private void initialize() {
-
-        
-        
         // Initialize the person table with the two columns.
     	nomeColumn.setCellValueFactory(
                 cellData -> cellData.getValue().nomeCompletoDeProperty());
@@ -93,6 +90,8 @@ public class SelectDependenteController {
         		}catch (SQLException sqlex) {
                 	errorMessage += sqlex.getErrorCode();
         			System.out.println("SQL Error" + sqlex);		    
+        		}finally {
+        		    try { conn.close(); } catch (Exception e) { /* ignored */ }
         		}
         	}
         	if (errorMessage.length() == 0) {
@@ -142,25 +141,7 @@ public class SelectDependenteController {
             alert.showAndWait();
         }
     }
-    /*
-    @FXML
-    private void handleConsultarDependente() {
-        Dependente selectedDependente = DependenteTable.getSelectionModel().getSelectedItem();
-        if (selectedDependente != null) {
-           mainApp.showSelectDependente(selectedDependente);
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
-            
-            alert.showAndWait();
-        }
-    }
     
-    }*/
     
     public void setFuncionario(Funcionario func) {
         this.funcionario = func;
@@ -171,6 +152,8 @@ public class SelectDependenteController {
         	DependenteTable.setItems(dao.find(funcionario));        	
         }catch (SQLException sqlex) {
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
     }
     

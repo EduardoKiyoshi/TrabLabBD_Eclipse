@@ -22,17 +22,7 @@ public class UpdateTrabalhoController {
     private TextField dataTermino;
 	@FXML
     private void initialize() {
-        // Initialize the person table with the two columns.
-    	
-
-        // Clear person details.
-        //showPersonDetails(null);
-    	/*
-        // Listen for selection changes and show the person details when changed.
-    	trabalhoTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showPersonDetails(newValue));
-        */
-		
+       
     }
 	@FXML
     private void handleOk() {
@@ -47,6 +37,8 @@ public class UpdateTrabalhoController {
         }catch (SQLException sqlex) {
         	errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
     	
     	

@@ -61,8 +61,6 @@ public class UpdateDependenteController {
     	Connection conn = DBconnection.getConexao();
     	DependenteDAO dao = new  DependenteDAO(conn);
     	
-    	//Dependente fun = new Dependente();
-    	//Dependente.setNomeCompletoDe(nomeDe.getText());
     	Dependente.setDataNascimentoDe(DateUtil.parse(dataNascimentoDe.getText()));    	
     	if(rMas.isSelected())
     		Dependente.setSexoDe("M");
@@ -77,6 +75,8 @@ public class UpdateDependenteController {
         }catch (SQLException sqlex) {
         	errorMessage += sqlex.getErrorCode();
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
     	
     	

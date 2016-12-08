@@ -61,15 +61,6 @@ public class SelectTrabalhoController {
                 cellData -> cellData.getValue().dataInicioTrProperty());
     	dataTerminoTrColumn.setCellValueFactory(
                 cellData -> cellData.getValue().dataFimTrProperty());
-    	
-
-        // Clear person details.
-        //showPersonDetails(null);
-    	/*
-        // Listen for selection changes and show the person details when changed.
-    	trabalhoTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showPersonDetails(newValue));
-        */
     }
     
     public void setDialogStage(Stage dialogStage) {
@@ -92,16 +83,16 @@ public class SelectTrabalhoController {
         	trabalhoTable.setItems(daoTr.find(funcionario));        	
         }catch (SQLException sqlex) {
 			System.out.println("SQL Error" + sqlex);		    
+		}finally {
+		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 		}
-        
     }
     
     @FXML
     private void handleAddTrabalho() {
         Trabalho selectedTrabalho = trabalhoTable.getSelectionModel().getSelectedItem();
         if (funcionario != null) {
-            boolean okClicked = mainApp.showInsertTrabalho(funcionario);
-            
+            boolean okClicked = mainApp.showInsertTrabalho(funcionario, null);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -140,6 +131,7 @@ public class SelectTrabalhoController {
         int selectedIndex = trabalhoTable.getSelectionModel().getSelectedIndex();
         String errorMessage = "";
         
+        
         if (selectedTrabalho != null) {
         	// Nothing selected.
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -149,42 +141,51 @@ public class SelectTrabalhoController {
             alert.setContentText("Tem certeza que deseja excluir esse trabalho?");
             Optional<ButtonType> result = alert.showAndWait();
         	if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-        		try{
-	        		dao = new TrabalhoDAO(conn);
-	        		dao.deleteTrabalho(selectedTrabalho.getIdFu());
-	        		trabalhoTable.getItems().remove(selectedIndex);
-	        		
-	        		if(Bindings.isEmpty(trabalhoTable.getItems()).get() == true){
-	        			System.out.println("Tabela vazia");
-	        			daoFu = new FuncionarioDAO(conn);
-	        			daoFu.deleteFuncionario(funcionario.getIdFu());
+        		if(trabalhoTable.getItems().size() > 1){
+	        		try{
+        				dao = new TrabalhoDAO(conn);
+    	        		dao.deleteTrabalho(selectedTrabalho.getIdFu());
+    	        		trabalhoTable.getItems().remove(selectedIndex);
+        			
+		        		/*if(Bindings.isEmpty(trabalhoTable.getItems()).get() == true){
+		        			System.out.println("Tabela vazia");
+		        			daoFu = new FuncionarioDAO(conn);
+		        			daoFu.deleteFuncionario(funcionario.getIdFu());
+		        		}*/
+	        		}catch (SQLException sqlex) {
+	                	errorMessage += sqlex.getErrorCode();
+	        			System.out.println("SQL Error" + sqlex);		    
+	        		}finally {
+	        		    try { conn.close(); } catch (Exception e) { /* ignored */ }
 	        		}
-        		}catch (SQLException sqlex) {
-                	errorMessage += sqlex.getErrorCode();
-        			System.out.println("SQL Error" + sqlex);		    
-        		}
+	        		if (errorMessage.length() == 0) {
+	                    alert = new Alert(AlertType.CONFIRMATION); 
+	                    alert.initOwner(dialogStage);
+	                    alert.setTitle("Exclusao Confirmada");
+	                    alert.setHeaderText("Sucesso na exclusao");
+	                    alert.showAndWait();
+	                    
+	                } else {
+	                    // Show the error message.
+	                    alert = new Alert(AlertType.ERROR);
+	                    alert.initOwner(dialogStage);
+	                    alert.setTitle("Invalid Fields");
+	                    alert.setHeaderText("Please correct invalid fields");
+	                    alert.setContentText(ErrorHandler.getMessage(Integer.parseInt(errorMessage)));
+	                    
+	                    alert.showAndWait();
+	                }
+        		}else{
+        			alert = new Alert(AlertType.ERROR);
+                    alert.initOwner(dialogStage);
+                    alert.setTitle("Invalid Fields");
+                    alert.setHeaderText("Please correct invalid fields");
+                    alert.setContentText("Não é possivel apagar o único trabalho do funcionário");
+                    
+                    alert.showAndWait();
+    			}
         	}
-        	if (errorMessage.length() == 0) {
-                alert = new Alert(AlertType.CONFIRMATION); 
-                alert.initOwner(dialogStage);
-                alert.setTitle("Exclusao Confirmada");
-                alert.setHeaderText("Sucesso na exclusao");
-                alert.showAndWait();
-                
-                dialogStage.close();
-                
-            } else {
-                // Show the error message.
-                alert = new Alert(AlertType.ERROR);
-                alert.initOwner(dialogStage);
-                alert.setTitle("Invalid Fields");
-                alert.setHeaderText("Please correct invalid fields");
-                alert.setContentText(ErrorHandler.getMessage(Integer.parseInt(errorMessage)));
-                
-                alert.showAndWait();
-            }
-
-            alert.showAndWait();
+            
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -195,7 +196,11 @@ public class SelectTrabalhoController {
             alert.showAndWait();
         }
     }
-    
+    @FXML
+    private void handleTrabalhoTodosOverview() {
+    	mainApp.showTrabalhoTodosOverview();
+    	
+    }
     public void setFuncionario(Funcionario funcionario){
     	this.funcionario = funcionario;    	
     }
@@ -203,4 +208,5 @@ public class SelectTrabalhoController {
     private void handleBackButton() {
         mainApp.showFuncionarioOverview();
     }
+
 }

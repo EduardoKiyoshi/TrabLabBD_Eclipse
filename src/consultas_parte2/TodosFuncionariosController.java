@@ -68,4 +68,8 @@ public class TodosFuncionariosController {
 		}	
         
     }
+    @FXML
+    private void handleBackButton() {
+        mainApp.showFuncionarioOverview();
+    }
 }

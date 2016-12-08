@@ -26,7 +26,13 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		try{
+		String cpf = new String("111.222.333-12");
+		if(cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")){
+			System.out.println("CPF valido");
+		}else{
+			System.out.println("CPF invalido");
+		}
+		//try{
 	    	Connection con = DBconnection.getConexao();
 	    	TrabalhoDAO daoTr = new TrabalhoDAO(con);
 	    	FuncionarioDAO daoFu = new FuncionarioDAO(con);
@@ -57,7 +63,7 @@ public class Main extends Application {
 	    	//Checar se é maior q a data de comeco
 	    	//ger.setDataFimGe(DateUtil.parse("12/12/2015"));	    	
 	    	//daoTr.insertTrabalho(trab);
-	    	daoGe.updateGerencia(ger, DateUtil.parse("28/05/2020"));
+	    	//daoGe.updateGerencia(ger, DateUtil.parse("28/05/2020"));
 	    	/*
 	    	Dependente dep = new Dependente();
 	    	daoDep.deleteDependente(2, "pedro");*/
@@ -92,12 +98,12 @@ public class Main extends Application {
 	    	//lista = dao.findAll();
 	    	//LocalDate data = DateUtil.parse("12/12/2013");
 	    	//System.out.println(lista);
-    	}catch (SQLException e) {
+/*    	}catch (SQLException e) {
 			// TODO: handle exception
     		System.out.println(e);
-		}
+		}*/	
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

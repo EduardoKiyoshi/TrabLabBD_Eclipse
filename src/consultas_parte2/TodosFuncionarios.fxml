@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="consultas_parte2.TodosFuncionariosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="consultas_parte2.TodosFuncionariosController">
    <children>
-      <TableView fx:id="todosTable" layoutX="43.0" layoutY="32.0" prefHeight="321.0" prefWidth="522.0">
+      <TableView fx:id="todosTable" layoutX="27.0" layoutY="87.0" prefHeight="266.0" prefWidth="688.0">
         <columns>
-          <TableColumn fx:id="nomeFuncColumn" prefWidth="75.0" text="C1" />
-            <TableColumn fx:id="cargoColumn" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="salarioColumn" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="nomeDepColumn" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="idadeDepColumn" prefWidth="75.0" text="Column X" />
+          <TableColumn fx:id="nomeFuncColumn" prefWidth="112.0" text="Funcionário" />
+            <TableColumn fx:id="cargoColumn" prefWidth="104.0" text="Cargo" />
+            <TableColumn fx:id="salarioColumn" prefWidth="114.0" text="Salário" />
+            <TableColumn fx:id="nomeDepColumn" prefWidth="174.0" text="Dependente" />
+            <TableColumn fx:id="idadeDepColumn" prefWidth="182.0" text="Idade do dependente" />
         </columns>
       </TableView>
+      <Button layoutX="31.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleBackButton" text="&lt; voltar" />
    </children>
 </AnchorPane>
